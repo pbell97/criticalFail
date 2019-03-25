@@ -39,7 +39,7 @@
     left: 10%;
     height: 25px;
     background-color: seashell;
-    box-shadow: 1px 1px 10px black;
+    /* box-shadow: 1px 1px 10px black; */
 }
 
 #allPlayersView{
