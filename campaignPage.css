@@ -78,3 +78,52 @@
 }
 
 
+
+
+
+.playerAttributeModifier {
+    width: 40%;
+    height: 24px;
+}
+
+.playerAttributeIcon{
+    width: 20px;
+    height: 20px;
+}
+
+.userPicture{
+    width: 100%;
+}
+
+.playerAttributeScore{
+    width: 20%;
+    height: 16px;
+}
+
+.playerAttributeTitle{
+    width: 30%;
+}
+
+table{
+    position: relative;
+    left: 10%;
+}
+
+#savePlayerAttributes {
+    position: relative;
+    left: 30%;
+    height: 40px;
+    width: 40%;
+    top: 15px;
+}
+
+#nextDisplay{
+    position: relative;
+    left: 35%;
+    width: 30%;
+    top: 15px;
+}
+
+
+
+
