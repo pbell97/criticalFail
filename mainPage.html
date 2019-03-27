@@ -3,15 +3,63 @@
 <head>
 <style>
 
-body{
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.column1 {
+  float: left;
+  width: 33.33%;
+  text-align: center;
+}
+.column2 {
+  float: left;
+  width: 50%;
+  text-align: left;
+}
+.column3 {
+  float: right;
+  width: 50%;
+  text-align: right;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.row{
+    padding: 50px;
+}
+
+.bg{
+    height: 50%;
     background-image: url("critfail_pic2.png");
-
-    height: 100%;
-
     background-position: top;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100%;
+}
+
+.button {
+    background-color:black;
+    border: 2px solid white;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 50px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+.button1 {
+    bottom: 0;
+    font-size: 30px;
+    margin: 0;
 }
 </style>
 </head>
@@ -19,6 +67,28 @@ body{
 <body style="background-color: black">
 
 <div class="bg"></div>
+
+<div class="row">
+    <div class="column1">
+        <button class="button">Create Campaign</button>
+    </div>
+    <div class="column1">
+        <button class="button">Join Campaign</button>
+    </div>
+    <div class="column1">
+        <button class="button">Observe Campaign</button>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="column2">
+        <button class="button button1">Login</button>
+    </div>
+    <div class="column3">
+        <button class="button button1">FAQ</button>
+    </div>
+</div>
 
 </body>
 </html>
