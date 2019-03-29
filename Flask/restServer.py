@@ -7,6 +7,14 @@ CORS(app, support_credentials=True)
 
 
 messages = []
+servers = [{"campaignName": "First", "player": 5, "locked": True}, 
+{"campaignName": "Two", "player": 10, "locked": True},
+{"campaignName": "Three", "player": 2, "locked": False}]
+
+
+
+
+
 
 @app.route('/messages/', methods=['GET'], defaults={'lastMessageID': None, 'campaignID': None})
 @app.route('/messages/<campaignID>/<lastMessageID>', methods=['GET'])
@@ -19,7 +27,7 @@ def getMessages(campaignID, lastMessageID):
     messagesToSend = messages[int(lastMessageID):]
 
     response = "Return messages from " + str(lastMessageID) + " to present for campagin " + str(campaignID) + "\nMessages: " + str(messagesToSend)
-    return response, 200, {'Access-Control-Allow-Origin': '*'}
+    return response, 200 #, {'Access-Control-Allow-Origin': '*'}
 
 
 @app.route('/messages/', methods=['POST'])
@@ -34,10 +42,16 @@ def postMessages():
         messages.append(request.args['messageContents'])
         return "Message Added", 201
 
+@app.route('/serverInfo/', methods=['GET'])
+@cross_origin(supports_credentials=True)
+def getServerInfo():
+    global servers
+    return jsonify(servers), 200
 
 
 
 
 
 
-app.run(debug=True, threaded=True)
+
+app.run(host="0.0.0.0", port="80", debug=True, threaded=True)
