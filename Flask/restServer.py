@@ -29,8 +29,10 @@ def getMessages(campaignID, lastMessageID):
 
     messagesToSend = messages[int(lastMessageID):]
 
-    response = "Return messages from " + str(lastMessageID) + " to present for campagin " + str(campaignID) + "\nMessages: " + str(messagesToSend)
-    return response, 200 #, {'Access-Control-Allow-Origin': '*'}
+    # Use while loop for hanging request here?
+
+    response = jsonify(messagesToSend)
+    return response, 200, {'Access-Control-Allow-Origin': '*'}
 
 
 @app.route('/messages/', methods=['POST', 'OPTIONS'])
