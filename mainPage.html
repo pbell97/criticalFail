@@ -8,35 +8,49 @@
     <script src="mainPage.js"></script>
 </head>
 
-<body>
+<body style="background-color: black">
 
+    <!-- This container exists on Title and Main screens -->
     <div id="logoContainer"></div>
 
+    <!-- This is a Title screen only element -->
     <div id="subtitle">
         <p> Press any key to continue... </p>
     </div>
 
+    <!-- Contains Campaign-related buttons -->
     <div id="topRowContainer">
         <div class="row">
             <div class="column">
-                <button class="button">Create Campaign</button>
+                <a href="http://www.google.com">
+                    <button class="button">Create Campaign</button>
+                </a>
             </div>
             <div class="column">
-                <button class="button">Join Campaign</button>
+                <a href="http://www.google.com">
+                    <button class="button">Join Campaign</button>
+                </a>
             </div>
             <div class="column">
-                <button class="button">Observe Campaign</button>
+                <a href="http://www.google.com">
+                    <button class="button">Observe Campaign</button>
+                </a>
             </div>
         </div>
     </div>
 
+    <!-- Contains smaller buttons -->
     <div id="bottomRowContainer">
         <div class="row">
                 <button id="loginButton" class="button bottomButton" onclick="openLoginModal()">Login</button>
-                <button id="faqButton" class="button bottomButton">FAQ</button>
+
+                <a href="http://www.google.com">
+                    <button id="faqButton" class="button bottomButton">FAQ</button>
+                </a>
         </div>
     </div>
 
+    <!-- Hidden modal to be used if User tries to login -->
     <div id="loginModal" class="modal" onclick="closeLoginModal()">
         <div id="loginContent" class="modalContent">
             <p> I dunno man, put something here. It's 2:43 AM and I am tired </p>
@@ -45,6 +59,7 @@
 
 </body>
 
+<!-- Add event listeners to handle Title screen clicks -->
 <script>
     var body = document.getElementsByTagName("body")[0];
     body.addEventListener("click", goToMainPage);
