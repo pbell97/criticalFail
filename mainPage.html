@@ -3,30 +3,9 @@
 <head>
 <style>
 
-body {
-    margin: 0;
-    background-color: black;
-}
-
-#logoContainer{
-    position: absolute;
-    height: 50%;
-    width: 100%;
-    top: 0%;
-}
-
-#topRowContainer{
-    position: absolute;
-    height: 25%;
-    width: 100%;
-    top: 50%;
-}
-
-#bottomRowContainer{
-    position: absolute;
-    height: 20%;
-    width: 100%;
-    top: 75%;
+body, html {
+  height: 100%;
+  margin: 0;
 }
 
 .column1 {
@@ -34,74 +13,92 @@ body {
   width: 33.33%;
   text-align: center;
 }
-
-#loginButton {
+.column2 {
   float: left;
+  width: 50%;
   text-align: left;
 }
-#faqButton {
+.column3 {
   float: right;
+  width: 50%;
   text-align: right;
 }
 
-.row{
-    position: relative;
-    margin: 3em;
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
-img{
-    width: 100%;
-    height: auto;
-    object-fit: contain;
+.row{
+    padding: 50px;
+}
+
+.bg{
+    height: 50%;
+    background-image: url("critfail_pic2.png");
+    background-position: top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100%;
 }
 
 .button {
     background-color:black;
     border: 2px solid white;
     color: white;
-    padding: 0.5em;
+    padding: 20px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 3vmax;
+    font-size: 50px;
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 8px;
 }
-.bottomButton {
+.button1 {
     bottom: 0;
-    font-size: 2vmax;
+    font-size: 30px;
     margin: 0;
 }
 </style>
 </head>
 
-<body>
+<body style="background-color: black">
 
-    <div id="logoContainer">
-        <img src="critfail_pic2.png" alt="Critical Failure"\>
-    </div>
+<div class="bg"></div>
 
-    <div id="topRowContainer">
-        <div class="row">
-            <div class="column1">
-                <button class="button">Create Campaign</button>
-            </div>
-            <div class="column1">
-                <button class="button">Join Campaign</button>
-            </div>
-            <div class="column1">
-                <button class="button">Observe Campaign</button>
-            </div>
-        </div>
+<div class="row">
+    <div class="column1">
+        <a href="http://google.com">
+            <button class="button">Create Campaign</button>
+        </a>
     </div>
+    <div class="column1">
+        <a href="http://google.com">
+            <button class="button">Join Campaign</button>
+        </a>
+    </div>
+    <div class="column1">
+        <a href="http://google.com">
+            <button class="button">Observe Campaign</button>
+        </a>
+    </div>
+</div>
 
-    <div id="bottomRowContainer">
-        <div class="row">
-                <button id="loginButton" class="button bottomButton">Login</button>
-                <button id="faqButton" class="button bottomButton">FAQ</button>
-        </div>
+
+<div class="row">
+    <div class="column2">
+        <a href="http://google.com">
+            <button class="button button1">Login</button>
+        </a>
     </div>
+    <div class="column3">
+        <a href="http://google.com">
+            <button class="button button1">FAQ</button>
+        </a>
+    </div>
+</div>
 
 </body>
 </html>
