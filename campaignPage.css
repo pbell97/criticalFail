@@ -143,11 +143,12 @@ table{
 
 .message {
     color:white;
+    margin-bottom: -1em;
 }
 
 .message p {
     position: relative;
-    top: -1.5em;
+    top: -1em;
     font-size: 0.7em;
 }
 

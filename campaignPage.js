@@ -5,6 +5,8 @@ function chatClass(serverAddress, currentSession) {
     this.currentSession = currentSession;
     this.latestMessageID = 0;
 
+    this.campaignID = 1;    // TESTING ONLY. Make this dynamic.
+
     this.sendMessage = function(text){
         var that = this;
         $.ajax({
@@ -54,7 +56,7 @@ function chatClass(serverAddress, currentSession) {
         }
 
         $.ajax({
-            url: that.serverAddress + "campaignID/" + that.latestMessageID,
+            url: that.serverAddress + this.campaignID + "/" + that.latestMessageID,
             type: 'GET',
             data:{},
             async: true,
@@ -64,11 +66,11 @@ function chatClass(serverAddress, currentSession) {
                 if (data.length != 0){
                     console.log("Got " + data.length +" new messages server");
                     for (var messageData of data){
-                        var message = new receivedMessage(messageData.contents, new Date(messageData.timestamp), messageData.id, messageData.user);
+                        var message = new receivedMessage(messageData[2], new Date(messageData[4]), messageData[1], messageData[3]);
                         that.displayMessage(message);
                     }
     
-                    that.latestMessageID = messageData.id + 1;
+                    that.latestMessageID = message.id + 1;
                 }
             }
         });
