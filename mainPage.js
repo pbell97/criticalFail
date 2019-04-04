@@ -26,3 +26,35 @@ function closeLoginModal()
     var modal = document.getElementById("loginModal");
     modal.style.display = "none";  
 }
+
+function openFAQ()
+{
+    document.getElementById("FAQinfo").style.display = "block";    
+};
+
+function closeFAQ()
+{
+    document.getElementById("FAQinfo").style.display = "none";  
+}
+
+// no idea what I'm doing
+function login()
+{
+    var username = document.getElementById("username").value;
+    $.ajax(
+        {
+            url: "mainPage.php",
+            dataType: "text",
+            // left PHP, right JS
+            data: {username: username},
+            method: "POST"
+        }
+    )
+    .done(
+        function (errorLogin)
+        {
+            var error = document.getElementById("errorMessage");
+            error.innerHTML = errorLogin;
+        }
+    )
+}
