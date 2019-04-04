@@ -10,6 +10,9 @@
 
 <body style="background-color: black">
 
+    <!-- for AJAX -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
     <!-- This container exists on Title and Main screens -->
     <div id="logoContainer"></div>
 
@@ -42,18 +45,41 @@
     <!-- Contains smaller buttons -->
     <div id="bottomRowContainer">
         <div class="row">
-                <button id="loginButton" class="button bottomButton" onclick="openLoginModal()">Login</button>
+            <button id="loginButton" class="button bottomButton" onclick="openLoginModal()">Login</button>
 
-                <a href="http://www.google.com">
-                    <button id="faqButton" class="button bottomButton">FAQ</button>
-                </a>
+            <button id="faqButton" class="button bottomButton" onclick="openFAQ()">FAQ</button>
         </div>
     </div>
 
     <!-- Hidden modal to be used if User tries to login -->
-    <div id="loginModal" class="modal" onclick="closeLoginModal()">
+    <div id="loginModal" class="modal">
         <div id="loginContent" class="modalContent">
-            <p> I dunno man, put something here. It's 2:43 AM and I am tired </p>
+            <label>Username: </label>
+                <input type="text" name="username"> <br>
+            <label>Password: </label>
+                <input type="password" name="password"> <br>
+            <p style="color:crimson" id="errorMessage"></p>
+            <input type="submit" value="Submit" onclick="closeLoginModal()">
+        </div>
+    </div>
+
+    <!-- Hidden overlay that contains a few FAQs about the site -->
+    <!-- Info may need editing, wasn't sure on some of this -BAC -->
+    <div id="FAQinfo" class="modal" onclick="closeFAQ()">
+        <div id="FAQContent">
+            <p> FAQ </p>
+            <p> Q: What is Critical Fail? </p>
+            <p> A: Critical Fail is a web application used to simulate your favorite role-playing games online. This includes dice functionality and viewable character stats. </p>
+            <p> Q: How can I create a new campaign? </p>
+            <p> A: Game Masters can select the Create Campaign button to generate the chat room and the campaign ID which they can then distribute to other players. </p>
+            <p> Q: How can I join a campaign? </p>
+            <p> A: Campaigns can be joined by selecting the Join Campaign button and entering a campaign ID which is provided outside the game. </p>
+            <p> Q: How do I resume my current campaign? </p>
+            <p> A: Games can be resumed by logging in using the username and password which was used to access that campaign initially. </p>
+            <p> Q: Can I watch campaigns without joining in? </p>
+            <p> A: By clicking the Observe Campaign button you can access a list of all the campaigns. By selecting the Join button next to the campaign, you can view the campaign. Note that this option does not allow for the chat functionality. </p>
+            <p> Q: How do I exit the FAQ screen? </p>
+            <p> A: Click anywhere within the browser window. </p>
         </div>
     </div>
 
