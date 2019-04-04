@@ -98,6 +98,9 @@ def postMessages():
     if ('contents' not in request.form.keys()):
         print("They done messed up")
         return "Didn't include contents param", 409
+    elif (len(request.form['contents']) > 250):
+        print("They done tried to put too long of a message")
+        return "Message must be equal to or less than 250", 409
     else:
         print("Got message",request.form['contents'])
 
