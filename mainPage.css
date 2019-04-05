@@ -9,7 +9,6 @@ body {
     width: 100%;
     top: 0%;
     transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
-
     background: url(critfail_pic2.png) no-repeat center center;
     background-size: contain;
 }
@@ -34,13 +33,35 @@ body {
 
 #subtitle{
     position: absolute;
-    height: 20%;
+    height: 15%;
     width: 90%;
     left: 1em;
     bottom: 0%;
     text-align: left;
-    
     font-size: 2em;
+    color: white;
+}
+
+#FAQinfo {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.75);
+    z-index: 2;
+    cursor: pointer;
+}
+
+#FAQContent{
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    right: 5%;
+    font-size: 1.5em;
     color: white;
 }
 
@@ -66,7 +87,7 @@ body {
     font-size: calc(2vw + 1em);
     margin: 4px 2px;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 0.25em;
 }
 .button:hover,
 .button:focus{
@@ -84,7 +105,8 @@ body {
     float: left;
     text-align: left;
 }
+
 #faqButton {
-float: right;
-text-align: right;
+    float: right;
+    text-align: right;
 }
