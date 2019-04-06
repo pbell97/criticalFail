@@ -6,12 +6,11 @@
     <link rel="stylesheet" href="mainPage.css">
     <link rel="stylesheet" href="critFail.css">
     <script src="mainPage.js"></script>
+    <!-- for AJAX -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 
 <body style="background-color: black">
-
-    <!-- for AJAX -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
     <!-- This container exists on Title and Main screens -->
     <div id="logoContainer"></div>
@@ -52,13 +51,15 @@
     </div>
 
     <!-- Hidden modal to be used if User tries to login -->
-    <div id="loginModal" class="modal">
+    <div id="loginModal" class="modal" onclick="closeLoginModal()">
         <div id="loginContent" class="modalContent">
             <label>Username: </label>
                 <input type="text" name="username"> <br>
             <label>Password: </label>
                 <input type="password" name="password"> <br>
             <p style="color:crimson" id="errorMessage"></p>
+            <!-- Change onclick method to one that checks credentials
+                may be good to make a way of refilling data fields -->
             <input type="submit" value="Submit" onclick="closeLoginModal()">
         </div>
     </div>
