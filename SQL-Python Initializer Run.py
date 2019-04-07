@@ -29,7 +29,7 @@ mycursor.execute("USE criticalfail;")
 
 
 #Creates table queries
-init_cf_tokens = "CREATE TABLE IF NOT EXISTS cf_tokens (token VARCHAR(10) NOT NULL, username VARCHAR(30), expiration DATE, PRIMARY KEY(token));"
+init_cf_tokens = "CREATE TABLE IF NOT EXISTS cf_tokens (token VARCHAR(30) NOT NULL, username VARCHAR(30), expiration DATE, PRIMARY KEY(token));"
 init_cf_campaigns = "CREATE TABLE IF NOT EXISTS cf_campaigns (campaignID INT AUTO_INCREMENT NOT NULL, GMname VARCHAR(30), PRIMARY KEY(campaignID));"
 init_cf_users = "CREATE TABLE IF NOT EXISTS cf_users (campaignID INT, username VARCHAR(30), password VARCHAR(128), color VARCHAR(30), attributes VARCHAR(256), GMflag INT, PRIMARY KEY(campaignID, username), FOREIGN KEY(campaignID) REFERENCES cf_campaigns(campaignID));"
 init_cf_messages = "CREATE TABLE IF NOT EXISTS cf_messages (campaignID INT, messageID INT NOT NULL, message VARCHAR(250), username VARCHAR(30), time TIME, recipient VARCHAR(30), PRIMARY KEY(campaignID, messageID), FOREIGN KEY(campaignID) REFERENCES cf_campaigns(campaignID));"

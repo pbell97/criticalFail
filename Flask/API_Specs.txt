@@ -1,0 +1,60 @@
+Sample AJAX 'GET' using JQuery:
+
+        $.ajax({
+            url: that.serverAddress + that.campaignID + "/" + that.latestMessageID,
+            type: 'GET',
+            data:{},
+            async: true,
+            success: function (data) {
+
+                // If there are messages, display and update latest message
+                if (data.length != 0){
+                    console.log("Got " + data.length +" new messages server");
+                    for (var messageData of data){
+                        var message = new receivedMessage(messageData[2], new Date(messageData[4]), messageData[1], messageData[3]);
+                        that.displayMessage(message);
+                    }
+    
+                    that.latestMessageID = message.id + 1;
+                }
+            },
+            error: function(data) {                 //TBH haven't used this, just looked this error part up for this specs page
+                console.log("Get request failed")
+            }
+
+
+        });
+
+Sample AJAX 'POST' using JQuery
+
+        $.ajax({
+            url: this.serverAddress,
+            type: 'POST',
+            data:{contents: text, token:Cookies.get('token')},
+            async: true,
+            success: function (data) {
+                console.log("Got response from message post");
+                var newMessage = new receivedMessage(data.contents, new Date(data.timestamp), data.id, data.user);
+                console.log(newMessage.outputJson());
+                document.getElementById("messageInput").value = "";
+            },
+            error: function(data) {                 //TBH haven't used this, just looked this error part up for this specs page
+                console.log("Post request failed")
+            }
+        });
+
+
+
+
+
+
+Login:
+    - Make a post to http://ec2-3-209-137-117.compute-1.amazonaws.com/login/
+    - Parameters are {username: "usernameGoesHere", passhash: "hashedPasswordGoesHere"}
+    - Returns JSON obj of {"expiration": "ExpirationDate", "token": "30BitLongToken"}
+    - Need to create a cookie from this data
+
+Get Players list:
+    - Make a get to http://ec2-3-209-137-117.compute-1.amazonaws.com/players/campaignID (replace campaignID with an actual one)
+    - No Parameters
+    - Returns array of JSON objects, each JSON object will look like { "color": "Blue", "username": "Brooke" }

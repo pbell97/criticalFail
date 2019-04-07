@@ -9,6 +9,21 @@ function chatClass(serverAddress, currentSession) {
 
     this.sendMessage = function(text){
         var that = this;
+
+        // Trims text
+        text = text.trim(" ");
+
+        // Limits the message length
+        if (text.length > 250){
+            openModal("Your message cannot exceed 250 characters. Yours was " + text.length + ".");
+            return;
+        }
+
+        // Doesn't send blank
+        if (text == ""){
+            return;
+        }
+
         $.ajax({
             url: this.serverAddress,
             type: 'POST',
@@ -19,8 +34,6 @@ function chatClass(serverAddress, currentSession) {
                 var newMessage = new receivedMessage(data.contents, new Date(data.timestamp), data.id, data.user);
                 console.log(newMessage.outputJson());
                 document.getElementById("messageInput").value = "";
-                that.displayMessage(newMessage);
-                that.latestMessageID = newMessage.id + 1;
             }
         });
     }
@@ -55,8 +68,10 @@ function chatClass(serverAddress, currentSession) {
             that = this;
         }
 
+
+
         $.ajax({
-            url: that.serverAddress + this.campaignID + "/" + that.latestMessageID,
+            url: that.serverAddress + that.campaignID + "/" + that.latestMessageID,
             type: 'GET',
             data:{},
             async: true,
@@ -105,6 +120,21 @@ messagesInputElement.addEventListener("keyup", function(event) {
 
 
 
+function openModal(content)
+{
+    var modal = document.getElementById("mainModalContainer");
+    modal.style.display = "block";    
+    document.getElementById("mainModalContent").innerHTML = content;
+};
+
+function closeModal()
+{
+    var modal = document.getElementById("mainModalContainer");
+    modal.style.display = "none";  
+}
+
+
+
 var chat = new chatClass("http://ec2-3-209-137-117.compute-1.amazonaws.com/messages/", null);
 
 
@@ -112,3 +142,6 @@ var chat = new chatClass("http://ec2-3-209-137-117.compute-1.amazonaws.com/messa
 
 // UNCOMMENT to do chatting if server is on, also need to set 'token' cookie to 'abc123'
 // setInterval(chat.getMessages, 1000);
+
+
+// 01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789
