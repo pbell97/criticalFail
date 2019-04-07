@@ -173,6 +173,95 @@ def getPlayers(campaignID):
     response = jsonify(response)
     return response, 200, {'Access-Control-Allow-Origin': '*'}
 
+@app.route('/players/', methods=['GET'], defaults={'campaignID': None, "username": None})
+@app.route('/players/<campaignID>/<username>/', methods=['GET'])
+def getPlayerAttributes(campaignID, username):
+    if (campaignID == None or username == None):
+        print("You didn't give a campaignID or username")
+        return "You didn't give a campaignID or username", 422
+
+    attributes = getSQLResults("SELECT attributes FROM cf_users WHERE campaignID = " + str(campaignID) + " AND username = \"" + str(username) + "\"")
+
+    if (len(attributes) == 1):
+        attributes = attributes[0]
+    
+
+    response = jsonify(attributes)
+    return response, 200, {'Access-Control-Allow-Origin': '*'}
+
+@app.route('/createPlayer/', methods=['POST', 'OPTIONS'])
+# @cross_origin(supports_credentials=True)
+def createPlayer():
+
+    # Verifies token and gets user data
+    campaignID = request.form['campaignID']
+    username = request.form['username']
+
+    # Checks if user already exits
+    userExistsQuery = getSQLResults("SELECT username FROM cf_users WHERE campaignID = \"" + str(campaignID) + "\" AND username = \"" + str(username) + "\"")
+
+    if (userExistsQuery != []):
+        return "User already exists", 400
+    
+    passHash = request.form['passhash']
+    color = request.form['color']
+    attributes = request.form['attributes']
+    GMflag = 0
+
+    # Makes sure campaign exists
+    getResults = getSQLResults("SELECT campaignID FROM cf_campaigns WHERE campaignID = \"" + str(campaignID) + "\"")
+    if (getResults == []):
+        return "Campaign doesn't exist", 400
+
+    # Adds user to database
+    postQuery = "INSERT INTO cf_users (campaignID, username, password, color, attributes, GMflag) VALUES (%s, %s, %s, %s, %s, %s)"
+    postValues = (str(campaignID), str(username), str(passHash), str(color),str(attributes), str(GMflag))
+    postSQL(postQuery, postValues)
+
+    # Creates token for new user
+    token = secrets.token_hex(15)
+    expirationTime = datetime.datetime.now() + datetime.timedelta(days=1)
+    postQuery = "INSERT INTO cf_tokens (token, username, expiration) VALUES (%s, %s, %s)"
+    postValues = (str(token), str(username), str(expirationTime))
+    postSQL(postQuery, postValues)
+
+    return jsonify({"token": token, "expiration": expirationTime}), 201, {'Access-Control-Allow-Origin': '*'}
+
+@app.route('/createCampaign/', methods=['POST', 'OPTIONS'])
+# @cross_origin(supports_credentials=True)
+def createCampaign():
+
+    # Verifies token and gets user data
+    campaignID = request.form['campaignID']
+    GMname = request.form['username']
+
+    # Checks if user already exits
+    campaignExistsQuery = getSQLResults("SELECT campaignID FROM cf_campaigns WHERE campaignID = \"" + str(campaignID) + "\"")
+
+    if (campaignExistsQuery != []):
+        return "CampaignID already exists", 400
+    
+    passHash = request.form['passhash']
+    
+    # Adds campaign to database
+    postQuery = "INSERT INTO cf_campaigns (campaignID, GMname) VALUES (%s, %s)"
+    postValues = (str(campaignID), str(GMname))
+    postSQL(postQuery, postValues)
+
+
+    # Adds user to database
+    postQuery = "INSERT INTO cf_users (campaignID, username, password, GMflag) VALUES (%s, %s, %s, %s)"
+    postValues = (str(campaignID), str(GMname), str(passHash), str(1))
+    postSQL(postQuery, postValues)
+
+    # Creates token for new user
+    token = secrets.token_hex(15)
+    expirationTime = datetime.datetime.now() + datetime.timedelta(days=1)
+    postQuery = "INSERT INTO cf_tokens (token, username, expiration) VALUES (%s, %s, %s)"
+    postValues = (str(token), str(GMname), str(expirationTime))
+    postSQL(postQuery, postValues)
+
+    return jsonify({"token": token, "expiration": expirationTime}), 201, {'Access-Control-Allow-Origin': '*'}
 
 
 
