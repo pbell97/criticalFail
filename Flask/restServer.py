@@ -4,6 +4,8 @@ from flask_cors import CORS, cross_origin
 from flask_sslify import SSLify
 import datetime
 import mysql.connector
+import secrets
+import datetime
 
 app = Flask(__name__)
 sslify = SSLify(app)
@@ -30,12 +32,15 @@ tokens = {'abc123':"Patrick"}
 def getSQLResults(query):
     global sql
     sql.execute(query)
-    result = sql.fetchall()
-    returnedItem = []
-    for item in result:
-        returnedItem.append(item)
+    try:
+        result = sql.fetchall()
+        returnedItem = []
+        for item in result:
+            returnedItem.append(item)
 
-    return returnedItem
+        return returnedItem
+    except:
+        return None
 
 def postSQL(query, values):
     global sql, cnx
@@ -47,7 +52,6 @@ def postSQL(query, values):
 @app.route('/messages/', methods=['GET'], defaults={'lastMessageID': None, 'campaignID': None})
 @app.route('/messages/<campaignID>/<lastMessageID>', methods=['GET'])
 def getMessages(campaignID, lastMessageID):
-    global messages
     if (lastMessageID == None or campaignID == None):
         print("You didn't give a message ID or campaignID")
         return "You didn't give a message ID or campaignID or messageID didn't exist", 422
@@ -101,6 +105,9 @@ def postMessages():
     elif (len(request.form['contents']) > 250):
         print("They done tried to put too long of a message")
         return "Message must be equal to or less than 250", 409
+    elif (request.form['contents'].strip(" ") == ""):
+        print("They done tried send to a blank message")
+        return "Message must be equal to or less than 250", 409
     else:
         print("Got message",request.form['contents'])
 
@@ -110,7 +117,6 @@ def postMessages():
         postQueryValues = (str(campaignID), str(newID), request.form['contents'], username, str(message['timestamp']), 'none')
         postSQL(postQuery, postQueryValues)
 
-        messages.append(message)
         return jsonify(message), 201, {'Access-Control-Allow-Origin': '*'}
 
 @app.route('/serverInfo/', methods=['GET'])
@@ -119,7 +125,53 @@ def getServerInfo():
     global servers
     return jsonify(servers), 200
 
+@app.route('/login/', methods=['POST', 'OPTIONS'])
+# @cross_origin(supports_credentials=True)
+def postLogin():
 
+    # Verifies token and gets user data
+    username = request.form['username']
+    passhash = request.form['passhash']
+    usernameQuery = getSQLResults("SELECT * FROM cf_users WHERE username = '" + username + "'")
+    
+    print("Username query:", usernameQuery)
+
+    # If user doesn't exist
+    if (usernameQuery == []):
+        return "Login Error", 400, {'Access-Control-Allow-Origin': '*'}
+
+    # If password doesn't match
+    if (usernameQuery[0][2] != passhash):
+        return "Login Error", 400, {'Access-Control-Allow-Origin': '*'}
+    else:
+        # Generates token, 15 is bytes (each byte is 2 chars)
+        token = secrets.token_hex(15)
+        expirationTime = datetime.datetime.now() + datetime.timedelta(days=1)
+    
+
+    deletesAnyTokens = getSQLResults("DELETE FROM cf_tokens WHERE username = \"" + username + "\"")
+    postQuery = "INSERT INTO cf_tokens (token, username, expiration) VALUES (%s, %s, %s)"
+    postValues = (str(token), str(username), str(expirationTime))
+    postSQL(postQuery, postValues)
+
+    return jsonify({"token": token, "expiration": expirationTime}), 201, {'Access-Control-Allow-Origin': '*'}
+
+
+@app.route('/players/', methods=['GET'], defaults={'campaignID': None})
+@app.route('/players/<campaignID>/', methods=['GET'])
+def getPlayers(campaignID):
+    if (campaignID == None):
+        print("You didn't give a campaignID")
+        return "You didn't give a campaignID ", 422
+
+    players = getSQLResults("SELECT username, color FROM cf_users WHERE campaignID = " + str(campaignID) + " AND GMflag = 0")
+    response = []
+
+    for item in players:
+        response.append({"username": item[0], "color": item[1]})
+
+    response = jsonify(response)
+    return response, 200, {'Access-Control-Allow-Origin': '*'}
 
 
 
