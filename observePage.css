@@ -40,7 +40,7 @@ p {
 }
 
 .fixed_header thead {
-  background: rgb(35, 35, 35);
+  /* background: rgb(35, 35, 35); */
   color: #fff;
 }
 
