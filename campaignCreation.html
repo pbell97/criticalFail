@@ -4,6 +4,8 @@
     <title>Campaign Creation</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="critFail.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="campaignCreation.js"></script>
 
     <style>
         * {
@@ -48,6 +50,18 @@
             width: 15rem;        
             bottom: 0;
         }
+
+        .error{
+            background-color: black;
+            border-radius: 4px;
+            width: max-content;
+            padding: 0px 0.5em 0px 0.5em;
+            margin: 0.5em 0px 0px 0px;
+
+            color: red;
+            font-weight: bold;
+            display: none; 
+        }
     </style>
 
 </head>
@@ -55,18 +69,29 @@
     <div id="mainContainer">
         <h1 id="title"> Campaign Creation </h1>
         <div class="line"></div>
+
+        <p id="error" class="error"> Unable to create campaign, please try different inputs </p>
         
-        <p style="display: inline;"> Display name </p>
-        <input type="text" required="true" style="display: inline"/>
+        <p> GM Account Credentials </p>
+        <div style="position: relative; margin-left: 2rem;">
+            <p style="display: inline;"> Display name </p>
+            <input id="username" type="text" required="true" style="display: inline"/>
+            <br/>
+            <p id="passError" class="error"> Password must be at least 8 characters </p>
+            <p style="display: inline;"> Password </p>
+            <input id="password" type="password" required="true" style="display: inline"/>
+        </div>
+
+        <br/>
+
+        <p style="display: inline; "> Campaign Code </p>
+        <input id="campaignID" type="text" required="true" maxlength="32"/>
 
         <br/> <br/>
 
-        <p style="display: inline;"> Campaign Code </p>
-        <input type="text" required="true" maxlength="32"/>
-
+        <input type="submit" value="Create" onclick="createCampaign()"></input>
+        <input type="button" value="Return to home" onclick="goHome()" style="position: absolute; right: 0px;"></input>
         <br/> <br/>
-
-        <input type="submit" value="Create"></input>
     </div>    
 </body>
 </html>
