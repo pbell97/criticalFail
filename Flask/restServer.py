@@ -6,6 +6,7 @@ import datetime
 import mysql.connector
 import secrets
 import datetime
+import random
 
 app = Flask(__name__)
 sslify = SSLify(app)
@@ -165,6 +166,8 @@ def adminDelete():
 
     return "Success", 201, {'Access-Control-Allow-Origin': '*'}
 
+# Need to delete tokens when deleting players!!!
+
 @app.route('/login/', methods=['POST', 'OPTIONS'])
 # @cross_origin(supports_credentials=True)
 def postLogin():
@@ -301,6 +304,57 @@ def createCampaign():
     postSQL(postQuery, postValues)
 
     return jsonify({"token": token, "expiration": expirationTime}), 201, {'Access-Control-Allow-Origin': '*'}
+
+@app.route('/dice/', methods=['POST', 'OPTIONS'])
+# @cross_origin(supports_credentials=True)
+def postDiceRoll():
+    # If there cookie doesn't match, give error and break
+    if ('token' not in request.form.keys()):
+        print("Un-authed user tried to roll dice")
+        return "Request is not correctly authorized", 403
+
+    # Verifies token and gets user data
+    token = request.form['token']
+    tokenData = getSQLResults("SELECT username FROM cf_tokens WHERE token = '" + token + "'")
+    print("Token Data: ", tokenData)
+    if (tokenData == []):
+        print("Un-authed user tried to roll dice")
+        return "Request is not correctly authorized", 403
+
+    username = tokenData[0][0]
+    userData = getSQLResults("SELECT * FROM cf_users WHERE username = '" + username + "'")[0]
+    campaignID = userData[0]
+
+
+    diceResults = []
+    for i in range(int(request.form['numOfDice'])):
+        dice = random.randint(1, int(request.form['sideNumber']))
+        dice += int(request.form['modifier'])
+        diceResults.append(dice)
+
+    # Construct message with dice results
+    message = username + " rolled "
+    for roll in diceResults:
+        message += str(roll) + ", "
+
+    message = message[:-2] + "."
+
+    # Get latest message id for this campaign
+    latestID = getSQLResults("SELECT messageID FROM cf_messages WHERE campaignID = '" + str(campaignID) + "'")
+    if (latestID != []):
+        latestID = latestID[-1][0]
+    else:
+        latestID = 0
+    newID = latestID + 1
+
+
+    postQuery = "INSERT INTO cf_messages (campaignID, messageID, message, username, time, recipient) VALUES (%s, %s, %s, %s, %s, %s)"
+    postQueryValues = (str(campaignID), str(newID), message, "Server", str(datetime.datetime.now()), 'none')
+    postSQL(postQuery, postQueryValues)
+
+
+    return "Success", 201, {'Access-Control-Allow-Origin': '*'}
+
 
 
 
