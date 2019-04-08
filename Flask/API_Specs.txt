@@ -88,8 +88,15 @@ Get all player info:
     - Returns JSON array of { "GMflag": "gmflagHere", "attributes": "attributesHere", "campaignID": "campaignIDHere, "color": "colorHere", "username": "usernameHere"}
     - May not want to show attributes when populating tables because that could be long
 
-Delete player or campaign (ADMIN):          ***STILL A WIP***
+Delete player or campaign (ADMIN):          ***STILL A Work In Progress***
     - Make a post to http://ec2-3-209-137-117.compute-1.amazonaws.com/adminDelete/
     - Give params {token: "tokenGoesHere", campaignID: "campaignIDGoesHere", type: "putEither player or campaign", username: "playerNameHere if necessary"}
     - The type field will either be player or campaign depending on which you are deleting. Both require token and campaignID, but the player deletion also needs username
     - Returns "Success" if authorized appropriately. Will probably want to call /playersAll/ or /campaignsAll/ to repopulate table after deleting an item
+
+Roll dice:
+    - Make a post to http://ec2-3-209-137-117.compute-1.amazonaws.com/dice/
+    - Give params {token: "tokenGoesHere", sideNumber: "numberOfSidesOfDice", numOfDice: "howManyDiceThereAre", modifier: "canBe0"}
+    - If there is no modifier, must set as 0. If it works, a message is posted in the chat with the results
+    - Returns "Success" if it worked.
+    
