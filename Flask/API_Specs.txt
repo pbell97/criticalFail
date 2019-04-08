@@ -75,3 +75,21 @@ Create New Campaign:
     - Parameters are {campaignID: "campaignIDGoesHere", username: "usernameGoesHere", passhash: "hashedPassHere"}
     - Returns JSON obj of {"expiration": "ExpirationDate", "token": "30BitLongToken"}
     - Just set the cookie and redirect to campaign page
+
+Get all campaign info:
+    - Make a get to http://ec2-3-209-137-117.compute-1.amazonaws.com/campaignsAll/
+    - No Parameters
+    - Returns JSON array of {"GMname": "gmUsernameHere","campaignID": "campaignIDHere"}
+    - Just loop through the array and use this object to populate tables
+
+Get all player info:
+    - Make a get to http://ec2-3-209-137-117.compute-1.amazonaws.com/playersAll/
+    - No Parameters
+    - Returns JSON array of { "GMflag": "gmflagHere", "attributes": "attributesHere", "campaignID": "campaignIDHere, "color": "colorHere", "username": "usernameHere"}
+    - May not want to show attributes when populating tables because that could be long
+
+Delete player or campaign (ADMIN):          ***STILL A WIP***
+    - Make a post to http://ec2-3-209-137-117.compute-1.amazonaws.com/adminDelete/
+    - Give params {token: "tokenGoesHere", campaignID: "campaignIDGoesHere", type: "putEither player or campaign", username: "playerNameHere if necessary"}
+    - The type field will either be player or campaign depending on which you are deleting. Both require token and campaignID, but the player deletion also needs username
+    - Returns "Success" if authorized appropriately. Will probably want to call /playersAll/ or /campaignsAll/ to repopulate table after deleting an item
