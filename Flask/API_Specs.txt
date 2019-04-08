@@ -58,3 +58,20 @@ Get Players list:
     - Make a get to http://ec2-3-209-137-117.compute-1.amazonaws.com/players/campaignID (replace campaignID with an actual one)
     - No Parameters
     - Returns array of JSON objects, each JSON object will look like { "color": "Blue", "username": "Brooke" }
+
+Get Player Attributes:  - Needs to be updated!!
+    - Make a get to http://ec2-3-209-137-117.compute-1.amazonaws.com/players/campaignID/username/ (replace campaignID and username with acutal ones)
+    - No Parameters
+    - Returns an array of typically just one object (the actual attribute)
+
+Create New Player:
+    - Make a post to http://ec2-3-209-137-117.compute-1.amazonaws.com/createPlayer/
+    - Parameter are {campaignID: "campaignIDGoesHere", username: "usernameHere", passhash: "hashedPassHere", color: "hexColorHere", attributes: "attributesHere"}
+    - Returns JSON obj of {"expiration": "ExpirationDate", "token": "30BitLongToken"}
+    - Just set the cookie and redirect to campaign page
+
+Create New Campaign:
+    - Make a post to http://ec2-3-209-137-117.compute-1.amazonaws.com/createCampaign/
+    - Parameters are {campaignID: "campaignIDGoesHere", username: "usernameGoesHere", passhash: "hashedPassHere"}
+    - Returns JSON obj of {"expiration": "ExpirationDate", "token": "30BitLongToken"}
+    - Just set the cookie and redirect to campaign page
