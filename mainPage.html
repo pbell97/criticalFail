@@ -24,18 +24,18 @@
     <div id="topRowContainer">
         <div class="row">
             <div class="column">
-                <a href="campaignCreation.html">
-                    <button class="button">Create Campaign</button>
+                <a class="disabled" href="campaignCreation.html">
+                    <button class="button topButton">Create Campaign</button>
                 </a>
             </div>
             <div class="column">
-                <a href="http://www.isitchristmas.com">
-                    <button class="button">Join Campaign</button>
+                <a class="disabled" href="http://www.isitchristmas.com">
+                    <button class="button topButton">Join Campaign</button>
                 </a>
             </div>
             <div class="column">
-                <a href="observerPage.html">
-                    <button class="button">Observe Campaign</button>
+                <a class="disabled" href="observerPage.html">
+                    <button class="button topButton">Observe Campaign</button>
                 </a>
             </div>
         </div>
@@ -44,9 +44,9 @@
     <!-- Contains smaller buttons -->
     <div id="bottomRowContainer">
         <div class="row">
-            <button id="loginButton" class="button bottomButton" onclick="openLoginModal()">Login</button>
+            <button id="loginButton" class="button bottomButton disabled" onclick="openLoginModal()">Login</button>
 
-            <button id="faqButton" class="button bottomButton" onclick="openFAQ()">FAQ</button>
+            <button id="faqButton" class="button bottomButton disabled" onclick="openFAQ()">FAQ</button>
         </div>
     </div>
 
@@ -66,7 +66,7 @@
             <!-- Change onclick method to one that checks credentials
                 may be good to make a way of refilling data fields -->
             <!-- replace with login() when that's finished -->
-            <input type="submit" value="Submit" class="button submitButton" onclick="closeLoginModal()">
+            <input type="submit" value="Submit" class="button" onclick="closeLoginModal()">
         </div>
     </div>
 

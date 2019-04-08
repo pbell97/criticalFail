@@ -35,18 +35,13 @@
     overflow-x: hidden;
 }
 
+.button.smallerButton{
+    font-size: 1em;
+}
 
 #logoutButton{
     position: relative;
     top: 1rem;
-    width: 80%;
-    left: 10%;
-    height: 1.5rem;
-
-    background-color: rgb(250, 250, 250);
-    border: black outset 0.1rem;
-    border-radius: 0px;
-    /* box-shadow: 1px 1px 10px black; */
 }
 #logoutButton:hover{
     background-color: white;
@@ -140,16 +135,17 @@ table{
 
 #savePlayerAttributes {
     position: relative;
-    left: 30%;
-    height: 40px;
-    width: 40%;
+    display: block;
+    margin: auto;
+    width: max-content;
     top: 4px;
 }
 
 #nextDisplay{
     position: relative;
-    left: 35%;
-    width: 30%;
+    display: block;
+    margin: auto;
+    width: max-content;
     top: 3px;
 }
 
