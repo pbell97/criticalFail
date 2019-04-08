@@ -10,8 +10,8 @@
 * {
     font-family: 'vt323regular';
     background-color: rgb(0, 0, 0);
-    margin-left: auto;
-    margin-right: auto;
+    margin-left:auto; 
+    margin-right:auto;
 }
 
 h1 {
@@ -50,14 +50,15 @@ h1 {
     background: rgb(35, 35, 35);
 }
 
-/* table.center {
+
+table.center {
     margin-left:auto; 
     margin-right:auto;
-} */
+}
 
 .lockIcon {
-    width: 20px;
-    height: 20px;
+    width: 10px;
+    height: 10px;
 }
 
 #serverView {
@@ -66,52 +67,3 @@ h1 {
     overflow-y: auto;
     overflow-x: hidden;
 }
-
-
-
-
-
-
-
-/* th {
-  background-color: rgb(35, 35, 35);
-}
-
-table, th, td {
-    border: 1px solid gray;
-}
-
-table {
-    width: 1000px;
-} */
-
-/* table tbody, table thead
-{
-    display: block;
-}
-table tbody 
-{
-   overflow: auto;
-   height: 400px;
-} */
-
-/* body {text-align:center;} */
-
-/* th, td {
-    padding: 10px;
-    width: 1000px;
-    text-align: left;
-    vertical-align: middle;
-    color: white;
-} */
-
-/* .fixedHead tbody{
-    display:block;
-    overflow:auto;
-    height: 400px;
-    width: 75%;
-} */
-
-/* .fixedHead thead tr{
-    display:block;
-} */
