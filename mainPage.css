@@ -67,6 +67,16 @@ body {
     font-size: calc(1vw + 1em);
 }
 
+#submitButton {
+    float: left;
+    text-align: left;
+}
+
+#cancelButton {
+    float: right;
+    text-align: right;
+}
+
 #loginButton {
     float: left;
     text-align: left;
@@ -85,7 +95,3 @@ input[type=text], input[type=password] {
     box-sizing: border-box;
 }
 
-.modalClose {
-    text-align: left;
-    position: relative;
-  }

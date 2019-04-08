@@ -45,24 +45,26 @@ function closeFAQ()
     document.getElementById("FAQinfo").style.display = "none";  
 }
 
-// no idea what I'm doing
-function login()
-{
-    var username = document.getElementById("username").value;
-    $.ajax(
-        {
-            url: "mainPage.php",
-            dataType: "text",
-            // left PHP, right JS
-            data: {username: username},
-            method: "POST"
-        }
-    )
-    .done(
-        function (errorLogin)
-        {
+// not done - still need error checking, password hashing, etc.
+function login(){
+    var serverAddress = "http://ec2-3-209-137-117.compute-1.amazonaws.com/login/";
+    var username = document.getElementById("username").value.trim();
+    var password = document.getElementById("password").value.trim();
+
+    $.ajax({
+        url: serverAddress,
+        type: 'POST',
+        data:{username: username, passhash: password},
+        async: true,
+        success: function (data) {
             var error = document.getElementById("errorMessage");
-            error.innerHTML = errorLogin;
+            error.innerHTML = ""
+            console.log("Post request passed")
+        },
+        error: function(data) {
+            var error = document.getElementById("errorMessage");
+            error.innerHTML = "invalid data"
+            console.log("Post request failed")
         }
-    )
+    });
 }
