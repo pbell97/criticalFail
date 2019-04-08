@@ -48,6 +48,12 @@ body {
   text-align: center;
 }
 
+.doubleColumn {
+  float: left;
+  width: 50%;
+  text-align: center;
+}
+
 .row{
     position: relative;
     margin: 3em;
