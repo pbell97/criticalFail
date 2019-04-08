@@ -47,6 +47,7 @@ def postSQL(query, values):
     sql.execute(query, values)
     cnx.commit()
 
+# getSQLResults("SET SQL_SAFE_UPDATES = 0;")
 
 
 @app.route('/messages/', methods=['GET'], defaults={'lastMessageID': None, 'campaignID': None})
@@ -64,7 +65,6 @@ def getMessages(campaignID, lastMessageID):
 
     response = jsonify(messagesToSend)
     return response, 200, {'Access-Control-Allow-Origin': '*'}
-
 
 @app.route('/messages/', methods=['POST', 'OPTIONS'])
 # @cross_origin(supports_credentials=True)
@@ -119,11 +119,51 @@ def postMessages():
 
         return jsonify(message), 201, {'Access-Control-Allow-Origin': '*'}
 
-@app.route('/serverInfo/', methods=['GET'])
+@app.route('/campaignsAll/', methods=['GET'])
 # @cross_origin(supports_credentials=True)
-def getServerInfo():
-    global servers
-    return jsonify(servers), 200
+def getAllCampaigns():
+    campaigns = getSQLResults("SELECT * FROM cf_campaigns")
+    returnObj = []
+    for campaign in campaigns:
+        returnObj.append({"campaignID": campaign[0], "GMname": campaign[1]})
+    return jsonify(returnObj), 200
+
+@app.route('/playersAll/', methods=['GET'])
+# @cross_origin(supports_credentials=True)
+def getAllPlayers():
+    players = getSQLResults("SELECT campaignID, username, color, attributes, GMflag FROM cf_users")
+    returnObj = []
+    for player in players:
+        returnObj.append({"campaignID": player[0], "username": player[1], "color": player[2], "attributes": player[3], "GMflag": player[4]})
+    return jsonify(returnObj), 200
+
+@app.route('/adminDelete/', methods=['POST', 'OPTIONS'])
+# @cross_origin(supports_credentials=True)
+def adminDelete():
+    # If there cookie doesn't match, give error and break
+    if ('token' not in request.form.keys()):
+        print("Un-authed user use admin page")
+        return "Request is not correctly authorized", 403
+
+    # Verifies token and gets user data
+    token = request.form['token']
+    tokenData = getSQLResults("SELECT username FROM cf_tokens WHERE token = '" + token + "'")
+    print("Token Data: ", tokenData)
+    if (tokenData == [] or tokenData[0][0] != "Admin"):
+        print("Un-authed user tried to use admin page")
+        return "Request is not correctly authorized", 403
+
+    delType = request.form['type']
+
+    if (delType == "campaign"): 
+        getSQLResults("DELETE FROM cf_campaigns WHERE campaignID = \"" + request.form['campaignID'] + "\"")
+    elif (delType == "player"):
+        query = "DELETE FROM cf_users WHERE campaignID = \"" + request.form['campaignID'] + "\" AND username = \"" + request.form['username'] + "\""
+        print("Q: " + query)
+        getSQLResults("DELETE FROM cf_users WHERE campaignID = \"" + request.form['campaignID'] + "\" AND username = \"" + request.form['username'] + "\"")
+
+
+    return "Success", 201, {'Access-Control-Allow-Origin': '*'}
 
 @app.route('/login/', methods=['POST', 'OPTIONS'])
 # @cross_origin(supports_credentials=True)
@@ -155,7 +195,6 @@ def postLogin():
     postSQL(postQuery, postValues)
 
     return jsonify({"token": token, "expiration": expirationTime}), 201, {'Access-Control-Allow-Origin': '*'}
-
 
 @app.route('/players/', methods=['GET'], defaults={'campaignID': None})
 @app.route('/players/<campaignID>/', methods=['GET'])
