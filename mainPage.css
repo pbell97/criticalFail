@@ -101,6 +101,12 @@ body {
     margin: 0;
 }
 
+.returnButton {
+    bottom: 0;
+    font-size: calc(0.5vw + 0.5em);
+    margin: 0;
+}
+
 #loginButton {
     float: left;
     text-align: left;
