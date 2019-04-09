@@ -103,12 +103,14 @@ function session(){
 
     // If theres no campaignID token, go back home
     if (this.campaignID == null){
-        window.location.href = "mainPage.html";
+        window.location.href = "mainPage.html"; // May want to change this action. Maybe make a modal
     }
 
-    // If no token, player is observer
+    // If no token, player is observer, clear everything that they can't use
     if (this.token == null){
         this.type = 'observer';
+        // document.getElementById("logoutButton").outerHTML = "";
+        // document.getElementById("allPlayersView").style = "top: 0%";
     }else {
         this.type = 'player';
     }
@@ -131,6 +133,7 @@ function session(){
     // Gets all players
     this.getCampaignPlayers();
 
+    // Logs out the player
     this.logout = function(){
         Cookies.remove("token");
         Cookies.remove("campaignID");
