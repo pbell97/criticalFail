@@ -135,8 +135,8 @@ function session(){
 
     // Logs out the player
     this.logout = function(){
-        Cookies.remove("token");
-        Cookies.remove("campaignID");
+        Cookies.remove('token', { path: '' });
+        Cookies.remove('campaignID', { path: '' });
         window.location.href = "mainPage.html";
     }
 
