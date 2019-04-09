@@ -79,7 +79,7 @@ Create New Campaign:
 Get all campaign info:
     - Make a get to http://ec2-3-209-137-117.compute-1.amazonaws.com/campaignsAll/
     - No Parameters
-    - Returns JSON array of {"GMname": "gmUsernameHere","campaignID": "campaignIDHere"}
+    - Returns JSON array of {"GMname": "gmUsernameHere","campaignID": "campaignIDHere", count: "countHere"}
     - Just loop through the array and use this object to populate tables
 
 Get all player info:
