@@ -79,16 +79,22 @@ def postMessages():
 
     # Verifies token and gets user data
     token = request.form['token']
-    tokenData = getSQLResults("SELECT username FROM cf_tokens WHERE token = '" + token + "'")
+    tokenData = getSQLResults("SELECT username, campaignID FROM cf_tokens WHERE token = '" + token + "'")
     print("Token Data: ", tokenData)
     if (tokenData == []):
         print("Un-authed user tried to post a message")
         return "Request is not correctly authorized", 403
 
+    if (hasTokenExpired(token)):
+        print("Token expired.")
+        return "Token has expired", 403
+
     username = tokenData[0][0]
-    userData = getSQLResults("SELECT * FROM cf_users WHERE username = '" + username + "'")[0]
+    campaignID = tokenData[0][1]
+    print("SELECT * FROM cf_users WHERE username = '" + username + "' AND campaignID = '" + str(campaignID) + "'")
+    userData = getSQLResults("SELECT * FROM cf_users WHERE username = '" + username + "' AND campaignID = '" + str(campaignID) + "'")[0]
     color = userData[3]
-    campaignID = userData[0]
+    
     print("UserData:", userData)
 
     # Get latest message id for this campaign
@@ -154,6 +160,10 @@ def adminDelete():
         print("Un-authed user tried to use admin page")
         return "Request is not correctly authorized", 403
 
+    if (hasTokenExpired(token)):
+        print("Token expired.")
+        return "Token has expired", 403
+
     delType = request.form['type']
 
     if (delType == "campaign"): 
@@ -162,11 +172,9 @@ def adminDelete():
         query = "DELETE FROM cf_users WHERE campaignID = \"" + request.form['campaignID'] + "\" AND username = \"" + request.form['username'] + "\""
         print("Q: " + query)
         getSQLResults("DELETE FROM cf_users WHERE campaignID = \"" + request.form['campaignID'] + "\" AND username = \"" + request.form['username'] + "\"")
-
+        getSQLResults("DELETE FROM cf_tokens WHERE username = \"" + str(request.form['username']) + "\"")
 
     return "Success", 201, {'Access-Control-Allow-Origin': '*'}
-
-# Need to delete tokens when deleting players!!!
 
 @app.route('/login/', methods=['POST', 'OPTIONS'])
 # @cross_origin(supports_credentials=True)
@@ -175,7 +183,8 @@ def postLogin():
     # Verifies token and gets user data
     username = request.form['username']
     passhash = request.form['passhash']
-    usernameQuery = getSQLResults("SELECT * FROM cf_users WHERE username = '" + username + "'")
+    campaignID = request.form['campaignID']
+    usernameQuery = getSQLResults("SELECT * FROM cf_users WHERE username = '" + username + "' AND campaignID = '" + str(campaignID) + "'")
     
     print("Username query:", usernameQuery)
 
@@ -192,9 +201,9 @@ def postLogin():
         expirationTime = datetime.datetime.now() + datetime.timedelta(days=1)
     
 
-    deletesAnyTokens = getSQLResults("DELETE FROM cf_tokens WHERE username = \"" + username + "\"")
-    postQuery = "INSERT INTO cf_tokens (token, username, expiration) VALUES (%s, %s, %s)"
-    postValues = (str(token), str(username), str(expirationTime))
+    deletesAnyTokens = getSQLResults("DELETE FROM cf_tokens WHERE username = \"" + username + "\"AND campaignID = '" + str(campaignID) + "'")
+    postQuery = "INSERT INTO cf_tokens (token, username, expiration, campaignID) VALUES (%s, %s, %s, %s)"
+    postValues = (str(token), str(username), str(expirationTime), str(campaignID))
     postSQL(postQuery, postValues)
 
     return jsonify({"token": token, "expiration": expirationTime}), 201, {'Access-Control-Allow-Origin': '*'}
@@ -315,15 +324,19 @@ def postDiceRoll():
 
     # Verifies token and gets user data
     token = request.form['token']
-    tokenData = getSQLResults("SELECT username FROM cf_tokens WHERE token = '" + token + "'")
+    tokenData = getSQLResults("SELECT username, campaignID FROM cf_tokens WHERE token = '" + token + "'")
     print("Token Data: ", tokenData)
     if (tokenData == []):
         print("Un-authed user tried to roll dice")
         return "Request is not correctly authorized", 403
 
+    if (hasTokenExpired(token)):
+        print("Token expired.")
+        return "Token has expired", 403
+
+
     username = tokenData[0][0]
-    userData = getSQLResults("SELECT * FROM cf_users WHERE username = '" + username + "'")[0]
-    campaignID = userData[0]
+    campaignID = tokenData[0][1]
 
 
     diceResults = []
@@ -356,6 +369,19 @@ def postDiceRoll():
     return "Success", 201, {'Access-Control-Allow-Origin': '*'}
 
 
+# Checks if token has expired, if so, it deletes token
+def hasTokenExpired(token):
+    expiration = getSQLResults("SELECT expiration FROM cf_tokens WHERE token = \"" + str(token) + "\"")[0][0]
+    print(expiration)
+    expiration = datetime.datetime.strptime(expiration, '%Y-%m-%d %H:%M:%S.%f')
+    now = datetime.datetime.now()
+
+    hasExpired = now > expiration
+    if (hasExpired):
+        getSQLResults("DELETE FROM cf_tokens WHERE token = \"" + str(token) + "\"")
+    
+    return hasExpired
+    
 
 
 
