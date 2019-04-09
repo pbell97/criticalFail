@@ -13,34 +13,30 @@ function createCampaign ()
     {
         document.getElementById("passError").style.display = "none";
     }
-    
-    const encoder = new TextEncoder();
-    var promise = window.crypto.subtle.digest("SHA-256", encoder.encode(username+password));
-    promise.then(passhash =>
-    {
-        passhash = Array.from(new Uint8Array(passhash))
-                        .map(byte => byte.toString(16).padStart(2,"0"))
-                        .join("");
 
-        $.ajax({
-            url: "http://ec2-3-209-137-117.compute-1.amazonaws.com/createCampaign/",
-            type: 'POST',
-            data:{username: username, passhash: passhash, campaignID: campaignID},
-            dataType: "JSON",
-            async: true,
-            success: function (data) {
-                console.log("Login authenticated");
-                document.cookie = "token="+data.token+"; expires="+data.expiration;
-                window.location = "campaignPage.html";
-                document.getElementById("error").style.display = "none";
-            },
-            failure: function (data) {
-                console.log("Login failure");
-                document.getElementById("error").style.display = "block";
-            }
-        });
+    var passhash = digest(username, password);
+    
+    $.ajax({
+        url: "http://ec2-3-209-137-117.compute-1.amazonaws.com/createCampaign/",
+        type: 'POST',
+        data:{username: username, passhash: passhash, campaignID: campaignID},
+        dataType: "JSON",
+        async: true,
+        success: function (data) {
+            console.log("Login authenticated");
+            document.cookie = "token="+data.token+"; expires="+data.expiration;
+            window.location = "campaignPage.html";
+            document.getElementById("error").style.display = "none";
+        },
+        failure: function (data) {
+            console.log("Login failure");
+            document.getElementById("error").style.display = "block";
+        }
     });
 }
+
+function digest(parametera, parameterb)
+{var parameterab="";for(var i=1;i<=parametera.length&&i<=parameterb.length;i++)parameterab=parameterab+parametera.charAt(parametera.length-i)+parameterb.charAt(i-1);parameterab=parametera.length>parameterb.length?parameterab=parameterab.slice(0,parameterab.length/2)+parametera.slice(parameterb.length)+parameterab.slice(parameterab.length/2):parameterab.slice(0, parameterab.length/2)+parameterb.slice(parametera.length)+parameterab.slice(parameterab.length/2);return parameterab;}
 
 function goHome()
 {
