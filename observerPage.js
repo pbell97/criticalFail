@@ -6,3 +6,5 @@ request.onreadystatechange = function(){
 }
 request.open("GET", "http://ec2-3-208-34-201.compute-1.amazonaws.com:80/serverInfo/", true);
 request.send();
+
+
