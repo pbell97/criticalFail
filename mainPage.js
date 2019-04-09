@@ -62,6 +62,9 @@ function login(){
             error.innerHTML = ""
             console.log("Post request passed")
             // Need to set cookie here and redirect
+            Cookies.set("token", data.token);
+            Cookies.set("campaignID", document.getElementById("campaignID").value.trim());
+            window.location.href = "campaignPage.html";
         },
         error: function(data) {
             var error = document.getElementById("errorMessage");

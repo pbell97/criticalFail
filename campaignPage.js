@@ -5,7 +5,7 @@ function chatClass(serverAddress, currentSession) {
     this.currentSession = currentSession;
     this.latestMessageID = 0;
 
-    this.campaignID = 1;    // TESTING ONLY. Make this dynamic.
+    this.campaignID =  currentSession.campaignID;    // TESTING ONLY. Make this dynamic.
 
     this.sendMessage = function(text){
         var that = this;
@@ -94,6 +94,62 @@ function chatClass(serverAddress, currentSession) {
     
 }
 
+function session(){
+    this.serverAddress = "http://ec2-3-209-137-117.compute-1.amazonaws.com/";
+    this.token = Cookies.get('token');
+    this.campaignID = Cookies.get('campaignID');
+    this.players = [];
+    this.type = "";
+
+    // If theres no campaignID token, go back home
+    if (this.campaignID == null){
+        window.location.href = "mainPage.html";
+    }
+
+    // If no token, player is observer
+    if (this.token == null){
+        this.type = 'observer';
+    }else {
+        this.type = 'player';
+    }
+
+    this.getCampaignPlayers = function(){
+        //http://ec2-3-209-137-117.compute-1.amazonaws.com/players/campaignID
+        that = this;
+        $.ajax({
+            url: that.serverAddress + "players/" + that.campaignID + "/",
+            type: 'GET',
+            data:{},
+            async: true,
+            success: function (data) {
+                that.players = data;
+            }
+        });
+
+    }
+
+    // Gets all players
+    this.getCampaignPlayers();
+
+    this.logout = function(){
+        Cookies.remove("token");
+        Cookies.remove("campaignID");
+        window.location.href = "mainPage.html";
+    }
+
+
+
+    // Need to populate users on side bar. Is this for User class?
+
+
+}
+
+
+
+
+
+
+
 // Recieved Message Class
 function receivedMessage(contents, timestamp, id, user){
     this.contents = contents;
@@ -134,14 +190,11 @@ function closeModal()
 }
 
 
-
-var chat = new chatClass("http://ec2-3-209-137-117.compute-1.amazonaws.com/messages/", null);
+var currentSession = new session();
+var chat = new chatClass("http://ec2-3-209-137-117.compute-1.amazonaws.com/messages/", currentSession);
 
 
 // Need to set a timeout
 
 // UNCOMMENT to do chatting if server is on, also need to set 'token' cookie to 'abc123'
 // setInterval(chat.getMessages, 1000);
-
-
-// 01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789
