@@ -215,7 +215,7 @@ def getPlayers(campaignID):
         print("You didn't give a campaignID")
         return "You didn't give a campaignID ", 422
 
-    players = getSQLResults("SELECT username, color FROM cf_users WHERE campaignID = " + str(campaignID) + " AND GMflag = 0")
+    players = getSQLResults("SELECT username, color FROM cf_users WHERE campaignID = '" + str(campaignID) + "' AND GMflag = 0")
     response = []
 
     for item in players:
@@ -367,7 +367,6 @@ def postDiceRoll():
 
 
     return "Success", 201, {'Access-Control-Allow-Origin': '*'}
-
 
 # Checks if token has expired, if so, it deletes token
 def hasTokenExpired(token):
