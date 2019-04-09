@@ -50,7 +50,7 @@ Sample AJAX 'POST' using JQuery
 
 Login:
     - Make a post to http://ec2-3-209-137-117.compute-1.amazonaws.com/login/
-    - Parameters are {username: "usernameGoesHere", passhash: "hashedPasswordGoesHere"}
+    - Parameters are {username: "usernameGoesHere", passhash: "hashedPasswordGoesHere", campaignID: "campaignIDHere"}
     - Returns JSON obj of {"expiration": "ExpirationDate", "token": "30BitLongToken"}
     - Need to create a cookie from this data
 
