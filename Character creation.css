@@ -1,0 +1,45 @@
+body {
+    background-color: black;
+}
+
+p {
+    color: white;
+}
+
+label {
+    color: white;
+}
+
+/*.Top_Container{}*/
+
+.Attribute_Container{
+    background-color: red;
+    border-bottom: 5px red solid;
+    
+}
+
+.Attribute input{
+    padding: 0px 20px;
+    width: 1000px;
+}
+
+.Attribute{
+    padding-bottom: 20px;
+    padding-left: 20px;
+}
+
+.Save_Container{
+    float: auto;
+}
+
+.Save{
+    margin: 10px 0px;
+}
+
+.Skill_Container{
+    float: right;
+}
+
+.Skill{
+    margin: 10px 0px;
+}
