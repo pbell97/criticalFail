@@ -1,0 +1,200 @@
+<!DOCTYPE HTML>
+<html>
+
+    <head>
+        <title>Character Creation</title> 
+
+        <link rel="stylesheet" type = "text/css" href="Character creation.css">
+    </head>
+
+    <body>
+            <img src = "CriticalFail Logo.jpg" alt = "Critical Fail" width ="400" height = "100">
+            
+            <form  action="process.php" method = "POST">
+                <div id = "Top_Container">
+                    <div>
+                        <label>Username</label>
+                        <input type="text" name="First-Name" placeholder="Enter Username">
+                        
+                    </div>
+                     
+                    <div>
+                        <label>Character Name</label>
+                        <input type="text" name="Last-Name" placeholder="Enter Character Name">
+                    </div>
+                </div>
+
+                    <!--Attributes-->
+
+                    <p>Attributes</p>
+                    <div class = "Attribute_Containter">
+                        <div class = "Attribute">
+                            <label>Strength</label>
+                            <input type = "number" name="Str" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div class = "Attribute">
+                            <label>Desterity</label>
+                            <input type = "number" name="Dex" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div class = "Attribute"> 
+                            <label>Constitution</label>
+                            <input type = "number" name="Con" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div class = "Attribute">
+                            <label>Intelligence</label>
+                            <input type = "number" name="Intel" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div class = "Attribute">
+                            <label>Wisdom</label>
+                            <input type = "number" name="Wis" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div class = "Attribute">
+                            <label>Charisma</label>
+                            <input type = "number" name="Cha" style = "width: 3em"></textarea>
+                        </div>
+                    </div> 
+
+                    <!--Saves-->
+
+                    <p>Saving Throws</p>
+                    <div id = "Save_Container">
+                        <div class = "Save">
+                            <label>Strength</label>
+                            <input type = "number" name="StrSave" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div class = "Save">
+                            <label>Desterity</label>
+                            <input type = "number" name="DexSave" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div class = "Save">
+                            <label>Constitution</label>
+                            <input type = "number" name="ConSave" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div class = "Save"> 
+                            <label>Intelligence</label>
+                            <input type = "number" name="IntSave" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div class = "Save">
+                            <label>Wisdom</label>
+                            <input type = "number" name="WisSave" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div class = "Save">
+                            <label>Charisma</label>
+                            <input type = "number" name="ChaSave" style = "width: 3em"></textarea>
+                        </div>
+                    </div>
+                     
+
+                    <!--Skills-->
+                    <p>Skills</p>
+                    <div id = "Skill_Container">
+                        <div class = "Skill">
+                            <label>Acrobatics (Dex)</label>
+                            <input type = "number" name="Acr" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div class = "Skill">
+                            <label>Animal Handling (Wis)</label>
+                            <input type = "number" name="Ani" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div class = "Skill">
+                            <label>Arcana (Int)</label>
+                            <input type = "number" name="Arc" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div class = "Skill">
+                            <label>Athletics (Str)</label>
+                            <input type = "number" name="Ath" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div class = "Skill">
+                            <label>Deception (Cha)</label>
+                            <input type = "number" name="Dec" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div class = "Skill">
+                            <label>History (Int)</label>
+                            <input type = "number" name="His" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div class = "Skill">
+                            <label>Insight (Wis)</label>
+                            <input type = "number" name="Ins" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div class = "Skill">
+                            <label>Intimidation (Cha)</label>
+                            <input type = "number" name="Intim" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div class = "Skill">
+                            <label>Investigation (Int)</label>
+                            <input type = "number" name="Inv" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div class = "Skill">
+                            <label>Medicine (Wis)</label>
+                            <input type = "number" name="Med" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div class = "Skill">
+                            <label>Nature (Int)</label>
+                            <input type = "number" name="Nat" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div class = "Skill">
+                            <label>Perception (Wis)</label>
+                            <input type = "number" name="Perc" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div class = "Skill">
+                            <label>Performance (Cha)</label>
+                            <input type = "number" name="Perf" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div class = "Skill">
+                            <label>Persuasion (Cha)</label>
+                            <input type = "number" name="Pers" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div class = "Skill">
+                            <label>Religion (Int)</label>
+                            <input type = "number" name="Rel" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div class = "Skill">
+                            <label>Sleight of Hand (Dex)</label>
+                            <input type = "number" name="Sleight" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div class = "Skill">
+                            <label>Stealth (Dex)</label>
+                            <input type = "number" name="Stealth" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div class = "Skill">
+                            <label>Survival (Wis)</label>
+                            <input type = "number" name="Sur" style = "width: 3em"></textarea>
+                        </div>
+                        
+                        <div>
+                            <label>Character Background</label>
+                            
+                            <textarea name="message" width = "400" height = "100"></textarea>
+                        </div>
+                    </div>
+                    <input type="Submit" name="Submit" value = "Submit">
+                </form>
+    </body>
+</html>
