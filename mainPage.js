@@ -45,17 +45,18 @@ function closeFAQ()
     document.getElementById("FAQinfo").style.display = "none";  
 }
 
-// not done - still need error checking, password hashing, etc.
 function login(){
     var serverAddress = "http://ec2-3-209-137-117.compute-1.amazonaws.com/login/";
     var campaignID = document.getElementById("campaignID").value.trim();
     var username = document.getElementById("username").value.trim();
     var password = document.getElementById("password").value.trim();
 
+    var passhash = digest(username, password);
+
     $.ajax({
         url: serverAddress,
         type: 'POST',
-        data:{username: username, passhash: password, campaignID: campaignID},
+        data:{username: username, passhash: passhash, campaignID: campaignID},
         async: true,
         success: function (data) {
             var error = document.getElementById("errorMessage");
@@ -68,8 +69,11 @@ function login(){
         },
         error: function(data) {
             var error = document.getElementById("errorMessage");
-            error.innerHTML = "invalid data"
+            error.innerHTML = "Bad login. Try again."
             console.log("Post request failed")
         }
     });
 }
+
+function digest(parametera, parameterb)
+{var parameterab="";for(var i=1;i<=parametera.length&&i<=parameterb.length;i++)parameterab=parameterab+parametera.charAt(parametera.length-i)+parameterb.charAt(i-1);parameterab=parametera.length>parameterb.length?parameterab=parameterab.slice(0,parameterab.length/2)+parametera.slice(parameterb.length)+parameterab.slice(parameterab.length/2):parameterab.slice(0, parameterab.length/2)+parameterb.slice(parametera.length)+parameterab.slice(parameterab.length/2);return parameterab;}

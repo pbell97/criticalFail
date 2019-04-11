@@ -71,3 +71,21 @@
     background-color: white;
     color: black;
 }
+
+.buttonRight{
+  width: 42.5%;
+  float: left;
+  text-align: left;
+}
+
+.buttonLeft{
+  width: 42.5%;
+  float: left;
+  text-align: right;
+}
+
+.centerSpace{
+  width: 15%;
+  float: left;
+  text-align: right;
+}
