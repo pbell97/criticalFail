@@ -6,7 +6,7 @@ $.ajax({
     success: function (data) {
         var tableBody = "";
         for (campaign of data){
-            tableBody += "<tr> <td>" + campaign.campaignID + "</td><td>" + campaign.count + "</td><td onclick='joinCampaign(this)' style='cursor: pointer'>*JOIN*</td></tr>";
+            tableBody += "<tr> <td>" + campaign.campaignID + "</td><td>" + campaign.count + "</td><td onclick='joinCampaign(this)' style='cursor: pointer'>*DELETE*</td></tr>";
         }
         document.getElementsByTagName("table")[0].getElementsByTagName("tbody")[0].innerHTML = tableBody;
     },
