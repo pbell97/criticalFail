@@ -58,7 +58,7 @@ def getMessages(campaignID, lastMessageID):
         print("You didn't give a message ID or campaignID")
         return "You didn't give a message ID or campaignID or messageID didn't exist", 422
 
-    messagesToSend = getSQLResults("SELECT * FROM cf_messages WHERE campaignID = " + str(campaignID) + " AND messageID >= " + str(lastMessageID))
+    messagesToSend = getSQLResults("SELECT * FROM cf_messages WHERE campaignID = '" + str(campaignID) + "' AND messageID >= " + str(lastMessageID))
     print("Messages sending back are: ", messagesToSend)
     # messagesToSend = messages[int(lastMessageID):]
 
@@ -133,7 +133,12 @@ def getAllCampaigns():
     returnObj = []
     for campaign in campaigns:
         returnObj.append({"campaignID": campaign[0], "GMname": campaign[1]})
-    return jsonify(returnObj), 200
+
+    for i in range(len(returnObj)):
+        campaign = returnObj[i]["campaignID"]
+        count = getSQLResults("SELECT COUNT(username) FROM cf_users WHERE campaignID = '" + str(campaign) + "'")
+        returnObj[i]['count'] = count[0][0]
+    return jsonify(returnObj), 200, {'Access-Control-Allow-Origin': '*'}
 
 @app.route('/playersAll/', methods=['GET'])
 # @cross_origin(supports_credentials=True)
@@ -381,6 +386,45 @@ def hasTokenExpired(token):
     
     return hasExpired
     
+
+
+
+# NEEDS WORK!!!!
+@app.route('/attributes/', methods=['POST', 'OPTIONS'])
+def postPlayerAttributes():
+    # If there cookie doesn't match, give error and break
+    if ('token' not in request.form.keys()):
+        print("Un-authed user tried to roll dice")
+        return "Request is not correctly authorized", 403
+
+    # Verifies token and gets user data
+    token = request.form['token']
+    tokenData = getSQLResults("SELECT username, campaignID FROM cf_tokens WHERE token = '" + token + "'")
+    print("Token Data: ", tokenData)
+    if (tokenData == []):
+        print("Un-authed user tried to roll dice")
+        return "Request is not correctly authorized", 403
+
+    if (hasTokenExpired(token)):
+        print("Token expired.")
+        return "Token has expired", 403
+
+    username = tokenData[0][0]
+    campaignID = tokenData[0][1]
+
+    attributes = str(request.form['attributes'])
+    print("Atts: ", attributes)
+
+    postQuery = "UPDATE cf_users SET attributes = '" + attributes + "' WHERE username = \"" + str(username) + "\" AND campaignID = \"" + str(campaignID) + "\""
+    postValues =  (str(attributes))
+    # postSQL(postQuery, postValues)
+    getSQLResults(postQuery)
+
+    return "Success", 201, {'Access-Control-Allow-Origin': '*'}
+
+
+    
+
 
 
 
