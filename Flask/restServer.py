@@ -19,8 +19,10 @@ cnx = mysql.connector.connect(
     database='criticalFail',
     host='localhost')
 
-sql = cnx.cursor()
+sql = cnx.cursor(buffered=True)
 # sql.execute('USE criticalfail;')
+sql.execute('SET GLOBAL connect_timeout=6000')
+
 
 
 messages = []
@@ -415,10 +417,11 @@ def postPlayerAttributes():
     attributes = str(request.form['attributes'])
     print("Atts: ", attributes)
 
-    postQuery = "UPDATE cf_users SET attributes = '" + attributes + "' WHERE username = \"" + str(username) + "\" AND campaignID = \"" + str(campaignID) + "\""
-    postValues =  (str(attributes))
+    postQuery = "UPDATE cf_users SET attributes = '" + attributes + "' WHERE username = \"" + str(username) + "\" AND campaignID = \"" + str(campaignID) + "\";"
+    # postValues =  (str(attributes))
+    print(postQuery)
     # postSQL(postQuery, postValues)
-    getSQLResults(postQuery)
+    print(getSQLResults(postQuery))
 
     return "Success", 201, {'Access-Control-Allow-Origin': '*'}
 
