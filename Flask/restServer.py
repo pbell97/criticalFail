@@ -21,7 +21,7 @@ cnx = mysql.connector.connect(
 
 sql = cnx.cursor(buffered=True)
 # sql.execute('USE criticalfail;')
-sql.execute('SET GLOBAL connect_timeout=6000')
+# sql.execute('SET GLOBAL connect_timeout=6000')
 
 
 
@@ -279,8 +279,8 @@ def createPlayer():
     # Creates token for new user
     token = secrets.token_hex(15)
     expirationTime = datetime.datetime.now() + datetime.timedelta(days=1)
-    postQuery = "INSERT INTO cf_tokens (token, username, expiration) VALUES (%s, %s, %s)"
-    postValues = (str(token), str(username), str(expirationTime))
+    postQuery = "INSERT INTO cf_tokens (token, username, expiration, campaignID) VALUES (%s, %s, %s, %s)"
+    postValues = (str(token), str(username), str(expirationTime), str(campaignID))
     postSQL(postQuery, postValues)
 
     return jsonify({"token": token, "expiration": expirationTime}), 201, {'Access-Control-Allow-Origin': '*'}
@@ -387,8 +387,6 @@ def hasTokenExpired(token):
         getSQLResults("DELETE FROM cf_tokens WHERE token = \"" + str(token) + "\"")
     
     return hasExpired
-    
-
 
 
 # NEEDS WORK!!!!
@@ -425,8 +423,31 @@ def postPlayerAttributes():
 
     return "Success", 201, {'Access-Control-Allow-Origin': '*'}
 
+@app.route('/GM/', methods=['GET'], defaults={'campaignID': None})
+@app.route('/GM/<campaignID>/', methods=['GET'])
+def getGM(campaignID):
+    if (campaignID == None):
+        print("You didn't give a campaignID or username")
+        return "You didn't give a campaignID or username", 422
 
-    
+    GMusername = getSQLResults("SELECT username FROM cf_users WHERE campaignID = '" + str(campaignID) + "' AND GMFlag = 1")[0][0]
+
+    response = jsonify(GMusername)
+    return response, 200, {'Access-Control-Allow-Origin': '*'}
+
+@app.route('/currentPlayer/', methods=['GET'], defaults={'token': None})
+@app.route('/currentPlayer/<token>/', methods=['GET'])
+def getCurrentPlayer(token):
+    if (token == None):
+        print("You didn't give a token")
+        return "You didn't give a token", 422
+
+    tokenData = getSQLResults("SELECT username, campaignID FROM cf_tokens WHERE token = '" + token + "'")
+    username = tokenData[0][0]
+
+    response = jsonify(username)
+    return response, 200, {'Access-Control-Allow-Origin': '*'}
+   
 
 
 
