@@ -1,4 +1,4 @@
-* {
+table, header{
     color: white;
 }
 
@@ -18,12 +18,14 @@ body{
 }
 
 .fixed_header th, .fixed_header td {
+  color: white;
   padding: 5px;
   text-align: center;
   width: 5em;
 }
 
 .fixed_header thead th {
+    color: white;
     background: rgb(25, 25, 25);
 }
 
