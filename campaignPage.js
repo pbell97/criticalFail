@@ -45,7 +45,15 @@ function chatClass(serverAddress, currentSession) {
         var messsageText = document.createElement('span');
         messsageText.innerText = message.contents;
         var messageInfo = document.createElement('p');
-        messageInfo.innerText = message.user + " - " +  message.timestamp.toLocaleTimeString();
+
+        var color = "FFFFFF";
+        for (player of currentSession.players){
+            if (player.username == message.user){
+                color = player.color;
+            }
+        }
+
+        messageInfo.innerHTML =  "<span style='color: #" + color + "'>" + message.user + "</span> - " +  message.timestamp.toLocaleTimeString();
 
         // TODO: Set message color
 
@@ -100,6 +108,7 @@ function session(){
     this.campaignID = Cookies.get('campaignID');
     this.players = [];
     this.type = "";
+    this.GM = "";
 
     // If theres no campaignID token, go back home
     if (this.campaignID == null){
@@ -125,19 +134,39 @@ function session(){
             async: true,
             success: function (data) {
                 that.players = data;
+                that.populatePlayers();
             }
         });
-
+        $.ajax({
+            url: that.serverAddress + "GM/" + that.campaignID + "/",
+            type: 'GET',
+            data:{},
+            async: true,
+            success: function (data) {
+                that.GM = data;
+                document.getElementById("gmName").innerHTML = that.GM;
+            }
+        });
     }
 
+
+    // http://ec2-3-209-137-117.compute-1.amazonaws.com/GM/campaignID/
     // Gets all players
     this.getCampaignPlayers();
 
     // Logs out the player
     this.logout = function(){
-        Cookies.remove('token', { path: '' });
-        Cookies.remove('campaignID', { path: '' });
+        Cookies.remove('token');//, { path: '' });
+        Cookies.remove('campaignID');//, { path: '' });
         window.location.href = "mainPage.html";
+    }
+
+    this.populatePlayers = function(){
+        for (player of this.players){
+            var element = document.createElement("div");
+            element.innerHTML = '<div class="playerName" style="background-color: #' + player.color + '">' + player.username +'</div>';
+            document.getElementById("allPlayersView").appendChild(element);
+        }
     }
 
 

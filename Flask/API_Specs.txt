@@ -99,3 +99,6 @@ Roll dice:
     - Give params {token: "tokenGoesHere", sideNumber: "numberOfSidesOfDice", numOfDice: "howManyDiceThereAre", modifier: "canBe0"}
     - If there is no modifier, must set as 0. If it works, a message is posted in the chat with the results
     - Returns "Success" if it worked.
+
+GM Name:
+    - Make a get to http://ec2-3-209-137-117.compute-1.amazonaws.com/GM/campaignID/

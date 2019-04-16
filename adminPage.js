@@ -24,7 +24,7 @@ function joinCampaign(element){
 
 // Logs out the admin
 this.logout = function(){
-    Cookies.remove('token', { path: '' });
-    Cookies.remove('campaignID', { path: '' });
+    Cookies.remove('token');//, { path: '' });
+    Cookies.remove('campaignID');//, { path: '' });
     window.location.href = "mainPage.html";
 }
