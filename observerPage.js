@@ -16,7 +16,6 @@ $.ajax({
 });
 
 
-
 function joinCampaign(element){
     var campaign = element.parentElement.getElementsByTagName('td')[0].innerText;
     Cookies.set('campaignID', campaign);
