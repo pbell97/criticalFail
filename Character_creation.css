@@ -33,7 +33,6 @@ label {
 .topContainer1{
     float:left;
     width: 33.3%;
-    border: 1px dotted #ccc;
     padding: 10px;
     box-sizing:border-box;
 }
@@ -41,7 +40,6 @@ label {
 .topContainer2{
     float:right;
     width: 66.6%;
-    border: 1px dotted #ccc;
     padding: 10px;
     box-sizing:border-box;
 }
@@ -49,7 +47,6 @@ label {
 .midContainer1{
     float:left;
     width: 33.3%;
-    border: 1px dotted #ccc;
     padding: 10px;
     box-sizing:border-box;
 }
@@ -57,7 +54,6 @@ label {
 .midContainer2{
     float:right;
     width: 66.6%;
-    border: 1px dotted #ccc;
     padding: 10px;
     box-sizing:border-box;
 }
@@ -65,6 +61,7 @@ label {
 .topInput{
     padding-bottom: 30px;
     padding-left:20px;
+    display: inline-block;
 }
 
 .Attribute input{
@@ -87,6 +84,7 @@ label {
 
 .Skill input{
     width: 30px;
+    
 }
 
 .Skill{
@@ -95,11 +93,18 @@ label {
 }
 
 #submitButton {
-    float:left;
-
+    float: left;
+    display: block;
 }
 
 #characterBackground{
-    float:left;
+    padding-bottom: 20px;
+    float: center;
+    display: block;
+    
+}
+
+#characterBackground textarea{
+    display: block;
     
 }
