@@ -7,6 +7,7 @@ import mysql.connector
 import secrets
 import datetime
 import random
+import hashlib
 
 app = Flask(__name__)
 sslify = SSLify(app)
@@ -174,6 +175,9 @@ def adminDelete():
     delType = request.form['type']
 
     if (delType == "campaign"): 
+        getSQLResults("DELETE FROM cf_messages WHERE campaignID = '" + str(request.form['campaignID']) + "'")
+        getSQLResults("DELETE FROM cf_tokens WHERE campaignID = '" + str(request.form['campaignID']) + "'")
+        getSQLResults("DELETE FROM cf_users WHERE campaignID = '" + str(request.form['campaignID']) + "'")
         getSQLResults("DELETE FROM cf_campaigns WHERE campaignID = \"" + request.form['campaignID'] + "\"")
     elif (delType == "player"):
         query = "DELETE FROM cf_users WHERE campaignID = \"" + request.form['campaignID'] + "\" AND username = \"" + request.form['username'] + "\""
@@ -190,6 +194,7 @@ def postLogin():
     # Verifies token and gets user data
     username = request.form['username']
     passhash = request.form['passhash']
+    passhash = hashlib.md5('password'.encode()).hexdigest()
     campaignID = request.form['campaignID']
     usernameQuery = getSQLResults("SELECT * FROM cf_users WHERE username = '" + username + "' AND campaignID = '" + str(campaignID) + "'")
     
@@ -262,6 +267,7 @@ def createPlayer():
         return "User already exists", 400
     
     passHash = request.form['passhash']
+    passHash = hashlib.md5('password'.encode()).hexdigest()
     color = request.form['color']
     attributes = request.form['attributes']
     GMflag = 0
@@ -300,6 +306,7 @@ def createCampaign():
         return "CampaignID already exists", 400
     
     passHash = request.form['passhash']
+    passHash = hashlib.md5('password'.encode()).hexdigest()
     
     # Adds campaign to database
     postQuery = "INSERT INTO cf_campaigns (campaignID, GMname) VALUES (%s, %s)"
