@@ -16,9 +16,15 @@ $.ajax({
 });
 
 
-
 function joinCampaign(element){
     var campaign = element.parentElement.getElementsByTagName('td')[0].innerText;
     Cookies.set('campaignID', campaign);
     window.location.href = "campaignPage.html";
+}
+
+// Logs out the admin
+this.logout = function(){
+    Cookies.remove('token', { path: '' });
+    Cookies.remove('campaignID', { path: '' });
+    window.location.href = "mainPage.html";
 }
