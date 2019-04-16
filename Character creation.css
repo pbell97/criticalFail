@@ -2,6 +2,26 @@ body {
     background-color: black;
 }
 
+.button {
+    background-color:black;
+    border: 2px solid white;
+    color: white;
+    padding: 0.5em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: calc(2vw + 1em);
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.button:hover,
+.button:focus{
+    background-color: white;
+    color: black;
+}
+
 p {
     color: white;
 }
@@ -10,17 +30,45 @@ label {
     color: white;
 }
 
-/*.Top_Container{}*/
+.topContainer1{
+    float:left;
+    width: 33.3%;
+    border: 1px dotted #ccc;
+    padding: 10px;
+    box-sizing:border-box;
+}
 
-.Attribute_Container{
-    background-color: red;
-    border-bottom: 5px red solid;
-    
+.topContainer2{
+    float:right;
+    width: 66.6%;
+    border: 1px dotted #ccc;
+    padding: 10px;
+    box-sizing:border-box;
+}
+
+.midContainer1{
+    float:left;
+    width: 33.3%;
+    border: 1px dotted #ccc;
+    padding: 10px;
+    box-sizing:border-box;
+}
+
+.midContainer2{
+    float:right;
+    width: 66.6%;
+    border: 1px dotted #ccc;
+    padding: 10px;
+    box-sizing:border-box;
+}
+
+.topInput{
+    padding-bottom: 30px;
+    padding-left:20px;
 }
 
 .Attribute input{
-    padding: 0px 20px;
-    width: 1000px;
+    width: 30px;
 }
 
 .Attribute{
@@ -28,18 +76,30 @@ label {
     padding-left: 20px;
 }
 
-.Save_Container{
-    float: auto;
+.Save input{
+    width: 30px;
 }
 
 .Save{
-    margin: 10px 0px;
+    padding-bottom: 20px;
+    padding-left: 20px;
 }
 
-.Skill_Container{
-    float: right;
+.Skill input{
+    width: 30px;
 }
 
 .Skill{
-    margin: 10px 0px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+}
+
+#submitButton {
+    float:left;
+
+}
+
+#characterBackground{
+    float:left;
+    
 }
