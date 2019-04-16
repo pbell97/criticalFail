@@ -109,6 +109,7 @@ function session(){
     this.players = [];
     this.type = "";
     this.GM = "";
+    this.currentPlayer = "";
 
     // If theres no campaignID token, go back home
     if (this.campaignID == null){
@@ -147,6 +148,16 @@ function session(){
                 document.getElementById("gmName").innerHTML = that.GM;
             }
         });
+        $.ajax({
+            url: that.serverAddress + "currentPlayer/" + Cookies.get('token') + "/",
+            type: 'GET',
+            data:{},
+            async: true,
+            success: function (data) {
+                that.currentPlayer = data;
+                document.getElementById("activePlayerView").getElementsByClassName("playerName")[0].innerHTML = that.GM;
+            }
+        });
     }
 
 
@@ -158,6 +169,8 @@ function session(){
     this.logout = function(){
         Cookies.remove('token');//, { path: '' });
         Cookies.remove('campaignID');//, { path: '' });
+        Cookies.remove('token', { path: '' });
+        Cookies.remove('campaignID', { path: '' });
         window.location.href = "mainPage.html";
     }
 
