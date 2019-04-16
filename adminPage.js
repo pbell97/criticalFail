@@ -25,6 +25,7 @@ function deleteCampaign(element){
         async: true,
         success: function (data) {
             console.log("Deleted");
+            location.reload();
         },
         error: function(data) {
             console.log("Failed to get all campaign info");

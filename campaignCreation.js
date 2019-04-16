@@ -24,8 +24,14 @@ function createCampaign ()
         async: true,
         success: function (data) {
             console.log("Login authenticated");
-            document.cookie = "token="+data.token+"; expires="+data.expiration;
-            window.location = "campaignPage.html";
+            Cookies.set("token", data.token);
+
+            if (username == "Admin"){
+                window.location.href = "adminPage.html";
+            } else{
+                Cookies.set("campaignID", document.getElementById("campaignID").value.trim());
+                window.location.href = "campaignPage.html";
+            }
             document.getElementById("error").style.display = "none";
         },
         failure: function (data) {
