@@ -8,10 +8,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <script src="observerPage.js"></script>
+    <script src="mainPage.js"></script>
 </head>
 <body>
 
-<h1 align="center"> -Available Campaigns- </h1> 
+<h1 align="center" style="color: white"> -Available Campaigns- </h1> 
 
 <div class="fixed_header">
 <table>
@@ -38,11 +39,27 @@
             <p> </p>
         </div>
         <div class="buttonRight">
-            <a href="mainPage.html"> 
-                <!-- direct to a login prompt? -->
-                <button class="button returnButton">Login</button>
-            </a>
+        
+            <button id="loginButton" class="button bottomButton disabled" onclick="openLoginModal()">Login</button>
+    
         </div>
+
+        <!-- Hidden modal to be used if User tries to login -->
+        <div id="loginModal" class="modal">
+            <div id="loginContent" class="modalContent">
+                <label><b>Campaign:</b></label>
+                    <input type="text" id="campaignID" placeholder="Enter CampaignID" required> <br>
+                <label><b>Username:</b></label>
+                    <input type="text" id="username" placeholder="Enter Username" readonly onfocus="this.removeAttribute('readonly');"> <br>
+                <label><b>Password:</b></label>
+                    <input type="password" id="password" placeholder="Enter Password" readonly onfocus="this.removeAttribute('readonly');"> <br>
+                <p style="color:red" id="errorMessage"></p>
+                <!-- replace with login() when that's finished -->
+                <input id="submitButton" type="submit" value="Submit" onclick="login()">
+                <button id="cancelButton" onclick="closeLoginModal()">Cancel</button>
+            </div>
+        </div>
+
     </div>
 
 </body>
