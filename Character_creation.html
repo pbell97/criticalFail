@@ -5,38 +5,33 @@
         <title>Character Creation</title> 
 
         <link rel="stylesheet" href="critFail.css">
-        <link rel="stylesheet" href="Character creation.css">
-
-        <script src="Character creation.js"></script>
+        <link rel="stylesheet" href="Character_creation.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>    
+        <script src="Character_creation.js"></script>
     </head>
 
     <body>
             <div class = "topContainer1">
                 <img src = "CriticalFail Logo.jpg" alt = "Critical Fail" width ="400" height = "100">
             </div>
-
-            <form  action="process.php" method = "POST">
                 
             <div class = "topContainer2">
                 <div class = "topInput">
                     <label>Username</label>
-                    <input type="text" name="username" value = "" placeholder="Enter Username">                        
+                    <input type="text" id="username" value = "" placeholder="Enter Username">                        
                 </div>
                 <div class = "topInput">
                     <label>Password</label>
-                    <input type="text" name="password" value = "" placeholder="Enter Password">                        
+                    <input type="text" id="password" value = "" placeholder="Enter Password">                        
                 </div>
                 <div class = "topInput">
                     <label>CampaignID</label>
-                    <input type="text" name="characterName" value = "" placeholder="Enter Character Name">
-                </div>
-                <div class = "topInput">
-                    <label>Character Name</label>
-                    <input type="text" name="characterName" value = "" placeholder="Enter Character Name">
+                    <input type="text" id="campaignID" value = "" placeholder="Enter Character Name">
                 </div>
                 <div class = "topInput">
                     <label>Color</label>
-                    <input type="text" name="color" value = "FF0000" placeholder="Enter Color">
+                    <input type="text" id="color" value = "FF0000" placeholder="Enter Color">
                 </div>
             </div>
 
@@ -46,32 +41,32 @@
                         <p>Attributes</p>
                         <div class = "Attribute">
                             <label>Strength</label>
-                            <input type = "number" name="Str" value = "5">
+                            <input type = "number" id="Str" value = "5">
                         </div>
                         
                         <div class = "Attribute">
                             <label>Dexterity</label>
-                            <input type = "number" name="Dex" value = "5">
+                            <input type = "number" id="Dex" value = "5">
                         </div>
                         
                         <div class = "Attribute"> 
                             <label>Constitution</label>
-                            <input type = "number" name="Con" value = "5">
+                            <input type = "number" id="Con" value = "5">
                         </div>
                         
                         <div class = "Attribute">
                             <label>Intelligence</label>
-                            <input type = "number" name="Intel" value = "5">
+                            <input type = "number" id="Intel" value = "5">
                         </div>
                         
                         <div class = "Attribute">
                             <label>Wisdom</label>
-                            <input type = "number" name="Wis" value = "5">
+                            <input type = "number" id="Wis" value = "5">
                         </div>
                         
                         <div class = "Attribute">
                             <label>Charisma</label>
-                            <input type = "number" name="Cha" value = "5">
+                            <input type = "number" id="Cha" value = "5">
                         </div>
                     </div> 
 
@@ -80,92 +75,92 @@
                             <p>Skills</p>
                             <div class = "Skill">
                                 <label>Acrobatics (Dex)</label>
-                                <input type = "number" name="Acrobatics" value = "5">
+                                <input type = "number" id="Acrobatics" value = "5">
                             </div>
                             
                             <div class = "Skill">
                                 <label>Animal Handling (Wis)</label>
-                                <input type = "number" name="Animal" value = "5">
+                                <input type = "number" id="Animal" value = "5">
                             </div>
                             
                             <div class = "Skill">
                                 <label>Arcana (Int)</label>
-                                <input type = "number" name="Arcana" value = "5">
+                                <input type = "number" id="Arcana" value = "5">
                             </div>
                             
                             <div class = "Skill">
                                 <label>Athletics (Str)</label>
-                                <input type = "number" name="Athletics" value = "5">
+                                <input type = "number" id="Athletics" value = "5">
                             </div>
                             
                             <div class = "Skill">
                                 <label>Deception (Cha)</label>
-                                <input type = "number" name="Deception" value = "5">
+                                <input type = "number" id="Deception" value = "5">
                             </div>
                             
                             <div class = "Skill">
                                 <label>History (Int)</label>
-                                <input type = "number" name="History" value = "5">
+                                <input type = "number" id="History" value = "5">
                             </div>
                             
                             <div class = "Skill">
                                 <label>Insight (Wis)</label>
-                                <input type = "number" name="Insight" value = "5">
+                                <input type = "number" id="Insight" value = "5">
                             </div>
                             
                             <div class = "Skill">
                                 <label>Intimidation (Cha)</label>
-                                <input type = "number" name="Intimidation" value = "5">
+                                <input type = "number" id="Intimidation" value = "5">
                             </div>
                             
                             <div class = "Skill">
                                 <label>Investigation (Int)</label>
-                                <input type = "number" name="Investigation" value = "5">
+                                <input type = "number" id="Investigation" value = "5">
                             </div>
                             
                             <div class = "Skill">
                                 <label>Medicine (Wis)</label>
-                                <input type = "number" name="Medicine" value = "5">
+                                <input type = "number" id="Medicine" value = "5">
                             </div>
                             
                             <div class = "Skill">
                                 <label>Nature (Int)</label>
-                                <input type = "number" name="Nature" value = "5">
+                                <input type = "number" id="Nature" value = "5">
                             </div>
                             
                             <div class = "Skill">
                                 <label>Perception (Wis)</label>
-                                <input type = "number" name="Perception" value = "5">
+                                <input type = "number" id="Perception" value = "5">
                             </div>
                             
                             <div class = "Skill">
                                 <label>Performance (Cha)</label>
-                                <input type = "number" name="Performance" value = "5">
+                                <input type = "number" id="Performance" value = "5">
                             </div>
                             
                             <div class = "Skill">
                                 <label>Persuasion (Cha)</label>
-                                <input type = "number" name="Persuasion" value = "5">
+                                <input type = "number" id="Persuasion" value = "5">
                             </div>
                             
                             <div class = "Skill">
                                 <label>Religion (Int)</label>
-                                <input type = "number" name="Religion" value = "5">
+                                <input type = "number" id="Religion" value = "5">
                             </div>
                             
                             <div class = "Skill">
                                 <label>Sleight of Hand (Dex)</label>
-                                <input type = "number" name="Sleight" value = "5">
+                                <input type = "number" id="Sleight" value = "5">
                             </div>
                             
                             <div class = "Skill">
                                 <label>Stealth (Dex)</label>
-                                <input type = "number" name="Stealth" value = "5">
+                                <input type = "number" id="Stealth" value = "5">
                             </div>
                             
                             <div class = "Skill">
                                 <label>Survival (Wis)</label>
-                                <input type = "number" name="Survival" value = "5">
+                                <input type = "number" id="Survival" value = "5">
                             </div>
                             
                         </div>
@@ -176,42 +171,41 @@
                         <p>Saving Throws</p>
                         <div class = "Save">
                             <label>Strength</label>
-                            <input type = "number" name="StrSave" value = "5">
+                            <input type = "number" id="StrSave" value = "5">
                         </div>
 
                         <div class = "Save">
                             <label>Desterity</label>
-                            <input type = "number" name="DexSave" value = "5">
+                            <input type = "number" id="DexSave" value = "5">
                         </div>
                         
                         <div class = "Save">
                             <label>Constitution</label>
-                            <input type = "number" name="ConSave" value = "5">
+                            <input type = "number" id="ConSave" value = "5">
                         </div>
                         
                         <div class = "Save"> 
                             <label>Intelligence</label>
-                            <input type = "number" name="IntSave" value = "5">
+                            <input type = "number" id="IntSave" value = "5">
                         </div>
                         
                         <div class = "Save">
                             <label>Wisdom</label>
-                            <input type = "number" name="WisSave" value = "5">
+                            <input type = "number" id="WisSave" value = "5">
                         </div>
                         
                         <div class = "Save">
                             <label>Charisma</label>
-                            <input type = "number" name="ChaSave" value = "5">
+                            <input type = "number" id="ChaSave" value = "5">
                         </div>
                     </div>
 
                     <div id = "submitButton">
                         <div id = "characterBackground">
                             <label>Character Background</label>    
-                            <textarea name="background" width = "400" height = "100"  value = "This is my story. I came from a far away land looking for adventure."></textarea>
+                            <textarea id="background" width = "400" height = "100"  value = "This is my story. I came from a far away land looking for adventure."></textarea>
                         </div>
-                        <input class = "button" type="Submit" name="Submit" value = "Submit" onclick="processCharacter()">
+                        <input class = "button" type="Submit" id="Submit" value = "Submit" onclick="processCharacter()">
                     </div>
-                </form>
     </body>
 </html>

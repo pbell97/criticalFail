@@ -138,7 +138,7 @@ table{
     display: block;
     margin: auto;
     width: max-content;
-    top: 4px;
+    top: 2px;
 }
 
 #nextDisplay{
@@ -146,8 +146,17 @@ table{
     display: block;
     margin: auto;
     width: max-content;
-    top: 3px;
+    /* top: 2px; */
 }
+
+#rollDice {
+    position: relative;
+    display: block;
+    margin: auto;
+    width: max-content;
+    /* top: 2px; */
+}
+
 
 .message {
     color:white;

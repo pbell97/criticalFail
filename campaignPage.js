@@ -149,10 +149,6 @@ function session(){
 
 
 
-
-
-
-
 // Recieved Message Class
 function receivedMessage(contents, timestamp, id, user){
     this.contents = contents;
@@ -177,6 +173,35 @@ messagesInputElement.addEventListener("keyup", function(event) {
   }
 });
 
+function rollDice(step){
+    if (step == "open"){
+        content = `
+        <div>Number of Dice: <input id="diceNumber"></div>
+        <div>Number of sides on Dice: <input id="diceSideNumber"></div>
+        <div><button onclick="rollDice('send')">Roll</button></div>
+        `
+        openModal(content);
+        document.getElementById("mainModalContainer").onclick="";
+    }
+    if (step == "send"){
+        $.ajax({
+            url: "http://ec2-3-209-137-117.compute-1.amazonaws.com/dice/",
+            type: 'POST',
+            data:{token:Cookies.get('token'), sideNumber: document.getElementById("diceSideNumber").value, numOfDice: document.getElementById("diceNumber").value, modifier: 0},
+            async: true,
+            success: function (data) {
+                console.log("Got response from message dice");
+
+                document.getElementById("mainModalContainer").onclick="closeModal()";
+                closeModal();
+            }
+        });
+        
+    }
+}
+
+
+
 
 
 function openModal(content)
@@ -200,4 +225,4 @@ var chat = new chatClass("http://ec2-3-209-137-117.compute-1.amazonaws.com/messa
 // Need to set a timeout
 
 // UNCOMMENT to do chatting if server is on, also need to set 'token' cookie to 'abc123'
-// setInterval(chat.getMessages, 1000);
+setInterval(chat.getMessages, 1000);

@@ -2,13 +2,12 @@ function processCharacter(){
 
     //Username/Character Name
     var Username = document.getElementById("username").value;
-    var CharacterName = document.getElementById("characterName").value;
     var CampaignID = document.getElementById("campaignID").value;
     var Color = document.getElementById("color").value;
     var Password = document.getElementById("password").value;
 
     //Attributes
-    var Str = document.getElementById("Str").value;
+    var str = document.getElementById("Str").value;
     var Dex = document.getElementById("Dex").value;
     var Con = document.getElementById("Con").value;
     var Intel = document.getElementById("Intel").value;
@@ -19,7 +18,7 @@ function processCharacter(){
     var StrSave = document.getElementById("StrSave").value;
     var DexSave = document.getElementById("DexSave").value;
     var ConSave = document.getElementById("ConSave").value;
-    var IntelSave = document.getElementById("IntelSave").value;
+    var IntelSave = document.getElementById("IntSave").value;
     var WisSave = document.getElementById("WisSave").value;
     var ChaSave = document.getElementById("ChaSave").value;
 
@@ -48,38 +47,40 @@ function processCharacter(){
     var CharacterBackground = document.getElementById("background").value;
     
     var attributes = {
-        str = Str,
-        dex = Dex,
-        con = Con,
-        intel = Intel,
-        wis = Wis,
-        cha = Cha,
+        str : str,
+        dex : Dex,
+        con : Con,
+        intel : Intel,
+        wis : Wis,
+        cha : Cha,
 
-        strsave = StrSave,
-        dexsave = DexSave,
-        consave = ConSave,
-        intelsave = IntelSave,
-        wissave = WisSave,
-        chasave = ChaSave,
+        strsave : StrSave,
+        dexsave : DexSave,
+        consave : ConSave,
+        intelsave : IntelSave,
+        wissave : WisSave,
+        chasave : ChaSave,
 
-        acrobatics = Acrobatics,
-        animal = Animal,
-        arcana = Arcana,
-        athletics = Athletics,
-        deceoption = Deception,
-        history = History,
-        insight = Insight,
-        intimidation = Intimidation,
-        investigation = Investigation,
-        medicine = Medicine,
-        nature = Nature,
-        perception = Perception,
-        performance = Performance,
-        persuasion = Persuasion,
-        religion = Religion,
-        sleight = Sleight,
-        stealth = Stealth,
-        suvival = Survival,
+        acrobatics : Acrobatics,
+        animal : Animal,
+        arcana : Arcana,
+        athletics : Athletics,
+        deceoption : Deception,
+        history : History,
+        insight : Insight,
+        intimidation : Intimidation,
+        investigation : Investigation,
+        medicine : Medicine,
+        nature : Nature,
+        perception : Perception,
+        performance : Performance,
+        persuasion : Persuasion,
+        religion : Religion,
+        sleight : Sleight,
+        stealth : Stealth,
+        suvival : Survival,
+        Character_Background: CharacterBackground, 
+        GMflag: 0
     }
     /*
     if (password.length < 8)
@@ -102,16 +103,17 @@ function processCharacter(){
     $.ajax({
         url: "http://ec2-3-209-137-117.compute-1.amazonaws.com/createPlayer/",
         type: 'POST',
-        data:{campaignID: CampaignID, username: Username, character_name: CharacterName, password: PassHash, color: Color, attributes: Attributes, Character_Background: CharacterBackground, GMflag: 0},
+        data:{campaignID: CampaignID, username: Username, passhash: PassHash, color: Color, attributes: JSON.stringify(attributes)},
         async: true,
         success: function (data) {
             console.log("Got response from message post");
-            var newMessage = new receivedMessage(data.contents, new Date(data.timestamp), data.id, data.user);
-            console.log(newMessage.outputJson());
-            document.getElementById("messageInput").value = "";
+            // {"expiration": "ExpirationDate", "token": "30BitLongToken"}
+            Cookies.set("token", data.token);
+            Cookies.set("campaignID", document.getElementById("campaignID").value.trim());
+            window.location.href = "campaignPage.html";
         },
         error: function(data) {                 //TBH haven't used this, just looked this error part up for this specs page
-            console.log("Post request failed")
+            console.log("Post request failed");
         }
     });
 }

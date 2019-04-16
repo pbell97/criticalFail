@@ -99,4 +99,3 @@ Roll dice:
     - Give params {token: "tokenGoesHere", sideNumber: "numberOfSidesOfDice", numOfDice: "howManyDiceThereAre", modifier: "canBe0"}
     - If there is no modifier, must set as 0. If it works, a message is posted in the chat with the results
     - Returns "Success" if it worked.
-    
