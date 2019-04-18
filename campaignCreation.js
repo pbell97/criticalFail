@@ -26,7 +26,7 @@ function createCampaign ()
             console.log("Login authenticated");
             Cookies.set("token", data.token);
 
-            if (username == "Admin"){
+            if (username == "Admin" && campaignID == "Admin"){
                 window.location.href = "adminPage.html";
             } else{
                 Cookies.set("campaignID", document.getElementById("campaignID").value.trim());

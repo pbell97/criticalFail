@@ -8,6 +8,10 @@ function chatClass(serverAddress, currentSession) {
     this.campaignID =  currentSession.campaignID;    // TESTING ONLY. Make this dynamic.
 
     this.sendMessage = function(text){
+        if (this.currentSession.token == undefined){
+            return;
+        }
+
         var that = this;
 
         // Trims text
@@ -110,6 +114,18 @@ function session(){
     this.type = "";
     this.GM = "";
     this.currentPlayer = "";
+    this.currentPlayerData = {};
+
+    // If its an observer, change some stuff
+    if (this.token == undefined){
+        document.getElementById("messageInput").style = "display: none";
+        document.getElementById("logoutButton").innerHTML = "Go Home";
+        document.getElementById("rollDice").style = "display: none";;
+        document.getElementById("rightPanel").style = "display: none";
+        document.getElementById("middlePanel").style = "right: 0rem";
+        document.getElementById("messagesPane").style = "height: 100%";
+    }
+
 
     // If theres no campaignID token, go back home
     if (this.campaignID == null){
@@ -123,6 +139,15 @@ function session(){
         // document.getElementById("allPlayersView").style = "top: 0%";
     }else {
         this.type = 'player';
+    }
+
+
+    this.populatePlayers = function(){
+        for (player of this.players){
+            var element = document.createElement("div");
+            element.innerHTML = '<div class="playerName" style="background-color: #' + player.color + '">' + player.username +'</div>';
+            document.getElementById("allPlayersView").appendChild(element);
+        }
     }
 
     this.getCampaignPlayers = function(){
@@ -148,16 +173,34 @@ function session(){
                 document.getElementById("gmName").innerHTML = that.GM;
             }
         });
-        $.ajax({
-            url: that.serverAddress + "currentPlayer/" + Cookies.get('token') + "/",
-            type: 'GET',
-            data:{},
-            async: true,
-            success: function (data) {
-                that.currentPlayer = data;
-                document.getElementById("activePlayerView").getElementsByClassName("playerName")[0].innerHTML = that.GM;
-            }
-        });
+        if (this.token != undefined){
+            $.ajax({
+                url: that.serverAddress + "currentPlayer/" + Cookies.get('token') + "/",
+                type: 'GET',
+                data:{},
+                async: true,
+                success: function (data) {
+                    that.currentPlayer = data[1];
+                    that.currentPlayerData = JSON.parse(data[4])
+                    document.getElementById("activePlayerView").getElementsByClassName("playerName")[0].innerHTML = that.currentPlayer;
+                    that.populateStats()
+                }
+            });
+        } else {
+            document.getElementById("activePlayerView").getElementsByClassName("playerName")[0].innerHTML = "Observing";
+        }
+    }
+
+    // Populates stats for current player
+    this.populateStats = function(){
+        document.getElementById("playerAttributeHP").value = this.currentPlayerData.medicine;
+        document.getElementById("playerAttributeAC").value = this.currentPlayerData.athletics;
+        document.getElementById("playerAttributeStr").value = this.currentPlayerData.str;
+        document.getElementById("playerAttributeDex").value = this.currentPlayerData.dex;
+        document.getElementById("playerAttributeCon").value = this.currentPlayerData.con;
+        document.getElementById("playerAttributeInt").value = this.currentPlayerData.intel;
+        document.getElementById("playerAttributeWis").value = this.currentPlayerData.wis;
+        document.getElementById("playerAttributeCha").value = this.currentPlayerData.cha;
     }
 
 
@@ -174,13 +217,7 @@ function session(){
         window.location.href = "mainPage.html";
     }
 
-    this.populatePlayers = function(){
-        for (player of this.players){
-            var element = document.createElement("div");
-            element.innerHTML = '<div class="playerName" style="background-color: #' + player.color + '">' + player.username +'</div>';
-            document.getElementById("allPlayersView").appendChild(element);
-        }
-    }
+    
 
 
 
