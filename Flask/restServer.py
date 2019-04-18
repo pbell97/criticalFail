@@ -8,6 +8,7 @@ import secrets
 import datetime
 import random
 import hashlib
+import time
 
 app = Flask(__name__)
 sslify = SSLify(app)
@@ -18,7 +19,8 @@ cnx = mysql.connector.connect(
     user='root',
     password='criticalFail',
     database='criticalFail',
-    host='localhost')
+    host='localhost',
+    buffered=True)
 
 sql = cnx.cursor(buffered=True)
 # sql.execute('USE criticalfail;')
@@ -26,30 +28,45 @@ sql = cnx.cursor(buffered=True)
 
 
 
-messages = []
-servers = [{"campaignName": "First", "player": 5, "locked": True}, 
-{"campaignName": "Two", "player": 10, "locked": True},
-{"campaignName": "Three", "player": 2, "locked": False}]
-tokens = {'abc123':"Patrick"}
-
+canSend = True
+canSendTime = 0
 
 def getSQLResults(query):
-    global sql
-    sql.execute(query)
+    global sql, canSend, canSendTime
     try:
+        while(not canSend):
+            if (canSendTime == 0):
+                canSendTime = time.time()
+            if (canSendTime != 0 and time.time() - canSendTime > 2):
+                canSend = True
+                canSendTime = 0
+            print("sitting in loop")
+            None
+        canSend = False
+        sql.execute(query)
         result = sql.fetchall()
+        canSend = True
+        canSendTime = 0
+        if result == None:
+            print("Repeating a search")
+            result = getSQLResults(query)
         returnedItem = []
         for item in result:
             returnedItem.append(item)
 
         return returnedItem
-    except:
-        return None
+    except Exception as exception:
+        print("Got Error ", exception)
+        return []
 
 def postSQL(query, values):
     global sql, cnx
     sql.execute(query, values)
     cnx.commit()
+    # try:
+    #     result = sql.fetchall()
+    # except:
+    #     None
 
 # getSQLResults("SET SQL_SAFE_UPDATES = 0;")
 
@@ -62,7 +79,7 @@ def getMessages(campaignID, lastMessageID):
         return "You didn't give a message ID or campaignID or messageID didn't exist", 422
 
     messagesToSend = getSQLResults("SELECT * FROM cf_messages WHERE campaignID = '" + str(campaignID) + "' AND messageID >= " + str(lastMessageID))
-    print("Messages sending back are: ", messagesToSend)
+    # print("Messages sending back are: ", messagesToSend)
     # messagesToSend = messages[int(lastMessageID):]
 
     # Use while loop for hanging request here?
@@ -98,7 +115,7 @@ def postMessages():
     userData = getSQLResults("SELECT * FROM cf_users WHERE username = '" + username + "' AND campaignID = '" + str(campaignID) + "'")[0]
     color = userData[3]
     
-    print("UserData:", userData)
+    # print("UserData:", userData)
 
     # Get latest message id for this campaign
     latestID = getSQLResults("SELECT messageID FROM cf_messages WHERE campaignID = '" + str(campaignID) + "'")
@@ -135,6 +152,8 @@ def getAllCampaigns():
     campaigns = getSQLResults("SELECT * FROM cf_campaigns")
     returnObj = []
     for campaign in campaigns:
+        if (campaign[0] == "Admin"):
+            continue
         returnObj.append({"campaignID": campaign[0], "GMname": campaign[1]})
 
     for i in range(len(returnObj)):
@@ -162,9 +181,9 @@ def adminDelete():
 
     # Verifies token and gets user data
     token = request.form['token']
-    tokenData = getSQLResults("SELECT username FROM cf_tokens WHERE token = '" + token + "'")
+    tokenData = getSQLResults("SELECT username, campaignID FROM cf_tokens WHERE token = '" + token + "'")
     print("Token Data: ", tokenData)
-    if (tokenData == [] or tokenData[0][0] != "Admin"):
+    if (tokenData == [] or tokenData[0][0] != "Admin" or tokenData[0][1] != "Admin"):
         print("Un-authed user tried to use admin page")
         return "Request is not correctly authorized", 403
 
@@ -194,7 +213,7 @@ def postLogin():
     # Verifies token and gets user data
     username = request.form['username']
     passhash = request.form['passhash']
-    passhash = hashlib.md5('password'.encode()).hexdigest()
+    passhash = hashlib.md5(passhash.encode()).hexdigest()
     campaignID = request.form['campaignID']
     usernameQuery = getSQLResults("SELECT * FROM cf_users WHERE username = '" + username + "' AND campaignID = '" + str(campaignID) + "'")
     
@@ -260,6 +279,9 @@ def createPlayer():
     campaignID = request.form['campaignID']
     username = request.form['username']
 
+    if (campaignID == "Admin" and username != "Admin"):
+        return "Can't join admin campaign", 400
+
     # Checks if user already exits
     userExistsQuery = getSQLResults("SELECT username FROM cf_users WHERE campaignID = \"" + str(campaignID) + "\" AND username = \"" + str(username) + "\"")
 
@@ -267,7 +289,7 @@ def createPlayer():
         return "User already exists", 400
     
     passHash = request.form['passhash']
-    passHash = hashlib.md5('password'.encode()).hexdigest()
+    passHash = hashlib.md5(passHash.encode()).hexdigest()
     color = request.form['color']
     attributes = request.form['attributes']
     GMflag = 0
@@ -306,7 +328,7 @@ def createCampaign():
         return "CampaignID already exists", 400
     
     passHash = request.form['passhash']
-    passHash = hashlib.md5('password'.encode()).hexdigest()
+    passHash = hashlib.md5(passHash.encode()).hexdigest()
     
     # Adds campaign to database
     postQuery = "INSERT INTO cf_campaigns (campaignID, GMname) VALUES (%s, %s)"
@@ -322,8 +344,8 @@ def createCampaign():
     # Creates token for new user
     token = secrets.token_hex(15)
     expirationTime = datetime.datetime.now() + datetime.timedelta(days=1)
-    postQuery = "INSERT INTO cf_tokens (token, username, expiration) VALUES (%s, %s, %s)"
-    postValues = (str(token), str(GMname), str(expirationTime))
+    postQuery = "INSERT INTO cf_tokens (token, username, expiration, campaignID) VALUES (%s, %s, %s, %s)"
+    postValues = (str(token), str(GMname), str(expirationTime), str(campaignID))
     postSQL(postQuery, postValues)
 
     return jsonify({"token": token, "expiration": expirationTime}), 201, {'Access-Control-Allow-Origin': '*'}
@@ -437,7 +459,8 @@ def getGM(campaignID):
         print("You didn't give a campaignID or username")
         return "You didn't give a campaignID or username", 422
 
-    GMusername = getSQLResults("SELECT username FROM cf_users WHERE campaignID = '" + str(campaignID) + "' AND GMFlag = 1")[0][0]
+    GMusername = getSQLResults("SELECT username FROM cf_users WHERE campaignID = '" + str(campaignID) + "' AND GMFlag = 1")
+    GMusername = GMusername[0][0]
 
     response = jsonify(GMusername)
     return response, 200, {'Access-Control-Allow-Origin': '*'}
@@ -451,8 +474,10 @@ def getCurrentPlayer(token):
 
     tokenData = getSQLResults("SELECT username, campaignID FROM cf_tokens WHERE token = '" + token + "'")
     username = tokenData[0][0]
+    stats = getSQLResults("SELECT * FROM cf_users WHERE username = '" + str(username) + "'")
+    stats = stats[0]
 
-    response = jsonify(username)
+    response = jsonify(stats)
     return response, 200, {'Access-Control-Allow-Origin': '*'}
    
 
