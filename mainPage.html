@@ -52,7 +52,7 @@
     </div>
 
     <!-- Hidden modal to be used if User tries to login -->
-    <div id="loginModal" class="modal">
+    <div id="loginModal" class="modal" onclick="closeLoginModal()">
         <div id="loginContent" class="modalContent">
             <label><b>Campaign:</b></label>
                 <input type="text" id="campaignID" placeholder="Enter CampaignID" required> <br>
@@ -61,7 +61,6 @@
             <label><b>Password:</b></label>
                 <input type="password" id="password" placeholder="Enter Password" readonly onfocus="this.removeAttribute('readonly');"> <br>
             <p style="color:red" id="errorMessage"></p>
-            <!-- replace with login() when that's finished -->
             <input id="submitButton" type="submit" value="Submit" onclick="login()">
             <button id="cancelButton" onclick="closeLoginModal()">Cancel</button>
         </div>
@@ -70,8 +69,8 @@
     <!-- Hidden overlay that contains a few FAQs about the site -->
     <!-- Info may need editing, wasn't sure on some of this -BAC -->
     <div id="FAQinfo" class="modal" onclick="closeFAQ()">
-        <div id="FAQContent" class="modalContent">
-            <p> FAQ </p>
+        <div id="FAQContent" style="font-size: 1.15rem;" class="modalContent">
+            <p style="font-size: 1.2em; font-weight: bold;"> FAQ </p>
             <p> Q: What is Critical Fail? </p>
             <p> A: Critical Fail is a web application used to simulate your favorite role-playing games online. This includes dice functionality and viewable character stats. </p>
             <p> Q: How can I create a new campaign? </p>

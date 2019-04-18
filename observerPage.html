@@ -28,39 +28,36 @@
 
     </tbody>                      
     </table>
+</div>
     <br>
     <div class="row">
         <div class="buttonLeft">
-            <a href="mainPage.html">
-                <button class="button returnButton">Back</button>
-            </a>
+            <button id="loginButton" class="button bottomButton disabled" onclick="openLoginModal()">Login</button>
         </div>
         <div class="centerSpace">
             <p> </p>
         </div>
         <div class="buttonRight">
-        
-            <button id="loginButton" class="button bottomButton disabled" onclick="openLoginModal()">Login</button>
-    
+            <a href="mainPage.html">
+                <button class="button returnButton">Back</button>
+            </a>
         </div>
-
-        <!-- Hidden modal to be used if User tries to login -->
-        <div id="loginModal" class="modal">
-            <div id="loginContent" class="modalContent">
-                <label><b>Campaign:</b></label>
-                    <input type="text" id="campaignID" placeholder="Enter CampaignID" required> <br>
-                <label><b>Username:</b></label>
-                    <input type="text" id="username" placeholder="Enter Username" readonly onfocus="this.removeAttribute('readonly');"> <br>
-                <label><b>Password:</b></label>
-                    <input type="password" id="password" placeholder="Enter Password" readonly onfocus="this.removeAttribute('readonly');"> <br>
-                <p style="color:red" id="errorMessage"></p>
-                <!-- replace with login() when that's finished -->
-                <input id="submitButton" type="submit" value="Submit" onclick="login()">
-                <button id="cancelButton" onclick="closeLoginModal()">Cancel</button>
-            </div>
-        </div>
-
     </div>
+
+<!-- Hidden modal to be used if User tries to login -->
+<div id="loginModal" class="modal" onclick="closeLoginModal()">
+    <div id="loginContent" style="font-size: 1rem;" class="modalContent">
+        <label><b>Campaign:</b></label>
+            <input type="text" id="campaignID" placeholder="Enter CampaignID" required> <br>
+        <label><b>Username:</b></label>
+            <input type="text" id="username" placeholder="Enter Username" readonly onfocus="this.removeAttribute('readonly');"> <br>
+        <label><b>Password:</b></label>
+            <input type="password" id="password" placeholder="Enter Password" readonly onfocus="this.removeAttribute('readonly');"> <br>
+        <p style="color:red" id="errorMessage"></p>
+        <input id="submitButton" type="submit" value="Submit" onclick="login()">
+        <button id="cancelButton" style="float: right;" onclick="closeLoginModal()">Cancel</button>
+    </div>
+</div>
 
 </body>
 </html>
