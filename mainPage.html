@@ -52,7 +52,7 @@
     </div>
 
     <!-- Hidden modal to be used if User tries to login -->
-    <div id="loginModal" class="modal" onclick="closeLoginModal()">
+    <div id="loginModal" class="modal">
         <div id="loginContent" class="modalContent">
             <label><b>Campaign:</b></label>
                 <input type="text" id="campaignID" placeholder="Enter CampaignID" required> <br>
@@ -81,8 +81,8 @@
             <p> A: Games can be resumed by logging in using the username, password, and campaign ID which was used to access that campaign initially. </p>
             <p> Q: Can I watch campaigns without joining in? </p>
             <p> A: By clicking the Observe Campaign button you can access a list of all the campaigns. By selecting the Join button next to the campaign, you can view the campaign. Note that this option does not allow for the chat functionality. </p>
-            <p> Q: How do I exit the FAQ screen? </p>
-            <p> A: Click anywhere within the browser window. </p>
+            <button id="cancelButton" onclick="closeLoginModal()">Cancel</button>
+            <br/> <br/>
         </div>
     </div>
 
@@ -90,7 +90,7 @@
 
 <!-- Add event listeners to handle Title screen clicks -->
 <script>
-    var body = document.getElementsByTagName("body")[0];
+    const body = document.getElementsByTagName("body")[0];
     body.addEventListener("click", goToMainPage);
     body.addEventListener("keypress", goToMainPage);
 </script>

@@ -50,6 +50,7 @@ input[type=text], input[type=password] {
     display: inline-block;
     border: 0.05rem solid #ccc;
     box-sizing: border-box;
+    color: black;
   }
 
 .close {
@@ -100,4 +101,23 @@ input[type=text], input[type=password] {
   width: 15%;
   float: left;
   text-align: right;
+}
+
+.line{
+  width: 100%;
+  height: 5px;
+  margin-bottom: 1.5rem;
+  background-color: rgb(80,80,80);
+}
+
+.error{
+  background-color: black;
+  border-radius: 4px;
+  width: max-content;
+  padding: 0px 0.5em 0px 0.5em;
+  margin: 0.5em 0px 0px 0px;
+
+  color: red;
+  font-weight: bold;
+  display: none; 
 }

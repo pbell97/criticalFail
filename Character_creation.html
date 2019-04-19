@@ -12,200 +12,194 @@
     </head>
 
     <body>
-            <div class = "topContainer1">
-                <img src = "CriticalFail Logo.jpg" alt = "Critical Fail" width ="400" height = "100">
-            </div>
-                
-            <div class = "topContainer2">
+        <div id="mainContainer">
+            <h1 id="title"> Player Creation </h1>
+            <div class="line"></div>
+    
+            <p id="error" class="error"> Unable to create player, please try different Username, Password, or CampaignID </p>
+            
+            <div>
                 <div class = "topInput">
                     <label>Username</label>
-                    <input type="text" id="username" value = "" placeholder="Enter Username">                        
+                    <input type="text" id="username" style="font-size: 1rem;" placeholder="Enter Username">                        
                 </div>
                 <div class = "topInput">
                     <label>Password</label>
-                    <input type="password" id="password"  value = "" placeholder="Enter Password">                        
+                    <input type="password" id="password" style="font-size: 1rem;"placeholder="Enter Password">                        
                 </div>
+                <br/>
                 <div class = "topInput">
                     <label>CampaignID</label>
-                    <input type="text" id="campaignID" value = "" placeholder="Enter Character Name">
+                    <input type="text" id="campaignID" style="font-size: 1rem;"placeholder="Enter Character Name">
                 </div>
                 <div class = "topInput">
                     <label>Color</label>
-                    <input type="text" id="color" value = "FF0000" placeholder="Enter Color">
+                    <input type="text" id="color" value = "FF0000" style="font-size: 1rem;"placeholder="Enter Color">
                 </div>
             </div>
 
-                    <!--Attributes-->
+            <div class="line"></div>
+    
+            <!--Attributes-->
+            <div id="attributes">
+                <p>Attributes</p>
+                <div class = "row">
+                    <label>Hit Points</label>
+                    <input type = "number" id="HP">
+                </div>
+                <div class = "row">
+                    <label>Armor Class</label>
+                    <input type = "number" id="AC">
+                </div>
+                <br/>
+                <div class = "row">
+                    <label>Strength</label>
+                    <p id="StrMod" class="modifier"> +1 </p>
+                    <input type = "number" id="Str" style="font-size: 1rem;" value = "12" onchange="updateModifier(this)">
+                </div>
+                
+                <div class = "row">
+                    <label>Dexterity</label>
+                    <p id="DexMod" class="modifier"> +1 </p>
+                    <input type = "number" id="Dex" style="font-size: 1rem;" value = "12" onchange="updateModifier(this)">
+                </div>
+                
+                <div class = "row"> 
+                    <label>Constitution</label>
+                    <p id="ConMod" class="modifier"> +1 </p>
+                    <input type = "number" id="Con" style="font-size: 1rem;" value = "12" onchange="updateModifier(this)">
+                </div>
+                
+                <div class = "row">
+                    <label>Intelligence</label>
+                    <p id="IntelMod" class="modifier"> +1 </p>
+                    <input type = "number" id="Intel" style="font-size: 1rem;" value = "12" onchange="updateModifier(this)">
+                </div>
+                
+                <div class = "row">
+                    <label>Wisdom</label>
+                    <p id="WisMod" class="modifier"> +1 </p>
+                    <input type = "number" id="Wis" style="font-size: 1rem;" value = "12" onchange="updateModifier(this)">
+                </div>
+                
+                <div class = "row">
+                    <label>Charisma</label>
+                    <p id="ChaMod" class="modifier"> +1 </p>
+                    <input type = "number" id="Cha" style="font-size: 1rem;" value = "12" onchange="updateModifier(this)">
+                </div>
+            </div> 
 
-                    <div class = "midContainer1">
-                        <p>Attributes</p>
-                        <div class = "Attribute">
-                            <label>Strength</label>
-                            <input type = "number" id="Str" value = "5">
-                        </div>
-                        
-                        <div class = "Attribute">
-                            <label>Dexterity</label>
-                            <input type = "number" id="Dex" value = "5">
-                        </div>
-                        
-                        <div class = "Attribute"> 
-                            <label>Constitution</label>
-                            <input type = "number" id="Con" value = "5">
-                        </div>
-                        
-                        <div class = "Attribute">
-                            <label>Intelligence</label>
-                            <input type = "number" id="Intel" value = "5">
-                        </div>
-                        
-                        <div class = "Attribute">
-                            <label>Wisdom</label>
-                            <input type = "number" id="Wis" value = "5">
-                        </div>
-                        
-                        <div class = "Attribute">
-                            <label>Charisma</label>
-                            <input type = "number" id="Cha" value = "5">
-                        </div>
-                    </div> 
+            <br/>
+            <div class="line"></div>
 
-                    <!--Skills-->
-                    <div class = "midContainer2">
-                            <p>Skills</p>
-                            <div class = "Skill">
-                                <label>Acrobatics (Dex)</label>
-                                <input type = "number" id="Acrobatics" value = "5">
-                            </div>
-                            
-                            <div class = "Skill">
-                                <label>Animal Handling (Wis)</label>
-                                <input type = "number" id="Animal" value = "5">
-                            </div>
-                            
-                            <div class = "Skill">
-                                <label>Arcana (Int)</label>
-                                <input type = "number" id="Arcana" value = "5">
-                            </div>
-                            
-                            <div class = "Skill">
-                                <label>Athletics (Str)</label>
-                                <input type = "number" id="Athletics" value = "5">
-                            </div>
-                            
-                            <div class = "Skill">
-                                <label>Deception (Cha)</label>
-                                <input type = "number" id="Deception" value = "5">
-                            </div>
-                            
-                            <div class = "Skill">
-                                <label>History (Int)</label>
-                                <input type = "number" id="History" value = "5">
-                            </div>
-                            
-                            <div class = "Skill">
-                                <label>Insight (Wis)</label>
-                                <input type = "number" id="Insight" value = "5">
-                            </div>
-                            
-                            <div class = "Skill">
-                                <label>Intimidation (Cha)</label>
-                                <input type = "number" id="Intimidation" value = "5">
-                            </div>
-                            
-                            <div class = "Skill">
-                                <label>Investigation (Int)</label>
-                                <input type = "number" id="Investigation" value = "5">
-                            </div>
-                            
-                            <div class = "Skill">
-                                <label>Medicine (Wis)</label>
-                                <input type = "number" id="Medicine" value = "5">
-                            </div>
-                            
-                            <div class = "Skill">
-                                <label>Nature (Int)</label>
-                                <input type = "number" id="Nature" value = "5">
-                            </div>
-                            
-                            <div class = "Skill">
-                                <label>Perception (Wis)</label>
-                                <input type = "number" id="Perception" value = "5">
-                            </div>
-                            
-                            <div class = "Skill">
-                                <label>Performance (Cha)</label>
-                                <input type = "number" id="Performance" value = "5">
-                            </div>
-                            
-                            <div class = "Skill">
-                                <label>Persuasion (Cha)</label>
-                                <input type = "number" id="Persuasion" value = "5">
-                            </div>
-                            
-                            <div class = "Skill">
-                                <label>Religion (Int)</label>
-                                <input type = "number" id="Religion" value = "5">
-                            </div>
-                            
-                            <div class = "Skill">
-                                <label>Sleight of Hand (Dex)</label>
-                                <input type = "number" id="Sleight" value = "5">
-                            </div>
-                            
-                            <div class = "Skill">
-                                <label>Stealth (Dex)</label>
-                                <input type = "number" id="Stealth" value = "5">
-                            </div>
-                            
-                            <div class = "Skill">
-                                <label>Survival (Wis)</label>
-                                <input type = "number" id="Survival" value = "5">
-                            </div>
-                            
-                        </div>
-
-                    <!--Saves-->
-
-                    <div class = "midContainer1">
-                        <p>Saving Throws</p>
-                        <div class = "Save">
-                            <label>Strength</label>
-                            <input type = "number" id="StrSave" value = "5">
-                        </div>
-
-                        <div class = "Save">
-                            <label>Desterity</label>
-                            <input type = "number" id="DexSave" value = "5">
-                        </div>
-                        
-                        <div class = "Save">
-                            <label>Constitution</label>
-                            <input type = "number" id="ConSave" value = "5">
-                        </div>
-                        
-                        <div class = "Save"> 
-                            <label>Intelligence</label>
-                            <input type = "number" id="IntSave" value = "5">
-                        </div>
-                        
-                        <div class = "Save">
-                            <label>Wisdom</label>
-                            <input type = "number" id="WisSave" value = "5">
-                        </div>
-                        
-                        <div class = "Save">
-                            <label>Charisma</label>
-                            <input type = "number" id="ChaSave" value = "5">
-                        </div>
+            <!--Skills-->
+            <div>
+                    <p>Skills</p>
+                    <div class = "row">
+                        <label>Acrobatics (Dex)</label>
+                        <input type = "number" id="Acrobatics" value = "5">
                     </div>
-
-                    <div id = "submitButton">
-                        <div id = "characterBackground">
-                            <label>Character Background</label>    
-                            <textarea id="background" width = "400" height = "100"  value = "This is my story. I came from a far away land looking for adventure."></textarea>
-                        </div>
-                        <input class = "button" type="Submit" id="Submit" value = "Submit" onclick="processCharacter()">
+                    
+                    <div class = "row">
+                        <label>Animal Handling (Wis)</label>
+                        <input type = "number" id="Animal" value = "5">
                     </div>
+                    
+                    <div class = "row">
+                        <label>Arcana (Int)</label>
+                        <input type = "number" id="Arcana" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Athletics (Str)</label>
+                        <input type = "number" id="Athletics" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Deception (Cha)</label>
+                        <input type = "number" id="Deception" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>History (Int)</label>
+                        <input type = "number" id="History" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Insight (Wis)</label>
+                        <input type = "number" id="Insight" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Intimidation (Cha)</label>
+                        <input type = "number" id="Intimidation" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Investigation (Int)</label>
+                        <input type = "number" id="Investigation" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Medicine (Wis)</label>
+                        <input type = "number" id="Medicine" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Nature (Int)</label>
+                        <input type = "number" id="Nature" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Perception (Wis)</label>
+                        <input type = "number" id="Perception" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Performance (Cha)</label>
+                        <input type = "number" id="Performance" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Persuasion (Cha)</label>
+                        <input type = "number" id="Persuasion" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Religion (Int)</label>
+                        <input type = "number" id="Religion" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Sleight of Hand (Dex)</label>
+                        <input type = "number" id="Sleight" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Stealth (Dex)</label>
+                        <input type = "number" id="Stealth" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Survival (Wis)</label>
+                        <input type = "number" id="Survival" value = "5">
+                    </div>
+                    
+            </div>
+
+            <br/>
+            <div class="line"></div>
+            <div id = "characterBackground" style="display: block;">
+                <label>Player Notes</label>
+                <br/>
+                <textarea id="background" placeholder="Enter your background, inventory, abilities, or other notes here"></textarea>
+            </div>
+            <br/>
+            <input class="button" type="Submit" id="Submit" value="Create" onclick="processCharacter()">
+            <a href="mainPage.html">
+                <button class="button" style="position: absolute; right: 0px;">Back</button>
+            </a>
+            <br/> <br/>
+        </div>
     </body>
 </html>

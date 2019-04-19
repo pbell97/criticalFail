@@ -73,7 +73,7 @@
 
 #messagesPane{
     position: relative;
-    height: 94%;
+    height: calc(100vh - 2em);
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -84,6 +84,7 @@
     bottom: 0px;
     height: 2em;
     font-size: 1.2rem;
+    margin: 0px;
 }
 
 
