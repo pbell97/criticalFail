@@ -6,6 +6,12 @@ function processCharacter(){
     var Color = document.getElementById("color").value;
     var Password = document.getElementById("password").value;
 
+    const red = 125+(parseInt(Color.substr(0,2), 16)/2);
+    const green = 125+(parseInt(Color.substr(2,2), 16)/2);
+    const blue= 125+(parseInt(Color.substr(4,2), 16)/2);
+
+    Color = red.toString(16)+green.toString(16)+blue.toString(16);
+
     //Attributes
     var hp = document.getElementById("HP").value;
     var ac = document.getElementById("AC").value;

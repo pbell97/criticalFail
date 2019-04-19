@@ -162,6 +162,7 @@ table{
 .message {
     color:white;
     margin-bottom: -1rem;
+    width: 100%;
 }
 
 .message p {
@@ -172,4 +173,5 @@ table{
 
 .message span{
     font-size: 1.2em;
+    word-wrap: break-word;
 }

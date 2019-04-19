@@ -58,8 +58,7 @@ function chatClass(serverAddress, currentSession) {
         }
 
         messageInfo.innerHTML =  "<span style='color: #" + color + "'>" + message.user + "</span> - " +  message.timestamp.toLocaleTimeString();
-
-        // TODO: Set message color
+        messsageText.style.color = "#"+color;
 
         // Adds message to page
         messageElement.appendChild(messsageText);
