@@ -65,6 +65,7 @@
     border: 1px solid black;
     background-color: rgb(67, 108, 221);
     line-height: 45px;
+    font-size: 1.2rem;
 }
 
 
@@ -115,6 +116,12 @@
     padding: 4px;
 }
 
+.title{
+    font-weight: bold;
+    margin: 0px;
+    font-size: 1.1em;
+}
+
 
 .userPicture{
     width: 100%;
@@ -135,19 +142,28 @@ table{
 }
 
 #savePlayerAttributes {
+    position: absolute;
+    display: inline;    
+    margin: 8px;
+    left: calc(50% - 8px);
+    transform: translateX(-50%); 
+}
+
+#prevDisplay{
     position: relative;
-    display: block;
-    margin: auto;
+    display: inline-block;
+    margin: 8px;
+    float: left;
     width: max-content;
-    top: 2px;
+    display: none;
 }
 
 #nextDisplay{
     position: relative;
-    display: block;
-    margin: auto;
+    display: inline-block;
+    margin: 8px;
+    float: right;
     width: max-content;
-    /* top: 2px; */
 }
 
 #rollDice {
@@ -174,4 +190,29 @@ table{
 .message span{
     font-size: 1.2em;
     word-wrap: break-word;
+}
+
+
+
+
+.row{
+    position: relative;
+    padding-left: 10px;
+}
+
+.modifier{
+    color: black;
+    background-color: white;
+    display: inline-block;
+    text-align: center;
+    margin: 4px 0px 4px 8px;
+    width: 1em;
+    border-radius: 4px;
+    font-size: 1.2em;
+}
+
+input[type=number]{
+    width: 2em;
+    color: black;
+    font-size: 1.2rem;
 }
