@@ -37,9 +37,11 @@ def getSQLResults(query):
         while(not canSend):
             if (canSendTime == 0):
                 canSendTime = time.time()
-            if (canSendTime != 0 and time.time() - canSendTime > 2):
+            if (canSendTime != 0 and time.time() - canSendTime > 1):
                 canSend = True
                 canSendTime = 0
+                print("Exitted Loop")
+            time.sleep(0.05)
             print("sitting in loop")
             None
         canSend = False
@@ -57,6 +59,15 @@ def getSQLResults(query):
         return returnedItem
     except Exception as exception:
         print("Got Error ", exception)
+        # sql.execute(query)
+        # result = sql.fetchall()
+        # if result != None:
+        #     returnedItem = []
+        #     for item in result:
+        #         returnedItem.append(item)
+        #     return returnedItem
+        # else:
+        #     return []
         return []
 
 def postSQL(query, values):
@@ -485,3 +496,5 @@ def getCurrentPlayer(token):
 
 
 app.run(host="0.0.0.0", port="80", debug=True, threaded=True)
+
+#Got Error  2055: Lost connection to MySQL server at 'localhost:3306', system error: 10053 An established connection was aborted by the software in your host machine
