@@ -12,6 +12,10 @@ function processCharacter(){
 
     Color = red.toString(16)+green.toString(16)+blue.toString(16);
 
+    if (Color.indexOf != -1){
+        Color = document.getElementById("color").value;
+    }
+
     //Attributes
     var hp = document.getElementById("HP").value;
     var ac = document.getElementById("AC").value;

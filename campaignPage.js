@@ -57,6 +57,8 @@ function chatClass(serverAddress, currentSession) {
             }
         }
 
+        var time = new Date(message.timestamp.toLocaleTimeString());
+        time.setMinutes( time.getHours() - 5);
         messageInfo.innerHTML =  "<span style='color: #" + color + "'>" + message.user + "</span> - " +  message.timestamp.toLocaleTimeString();
         messsageText.style.color = "#"+color;
 
@@ -193,14 +195,14 @@ function session(){
     // Make sure to update Attribute Modifiers Modifier = (score-10)//2
     // Populates stats for current player
     this.populateStats = function(){
-        document.getElementById("playerAttributeHP").value = this.currentPlayerData.medicine;
-        document.getElementById("playerAttributeAC").value = this.currentPlayerData.athletics;
-        document.getElementById("playerAttributeStr").value = this.currentPlayerData.str;
-        document.getElementById("playerAttributeDex").value = this.currentPlayerData.dex;
-        document.getElementById("playerAttributeCon").value = this.currentPlayerData.con;
-        document.getElementById("playerAttributeInt").value = this.currentPlayerData.intel;
-        document.getElementById("playerAttributeWis").value = this.currentPlayerData.wis;
-        document.getElementById("playerAttributeCha").value = this.currentPlayerData.cha;
+        document.getElementById("HP").value = this.currentPlayerData.hp;
+        document.getElementById("AC").value = this.currentPlayerData.ac;
+        document.getElementById("Str").value = this.currentPlayerData.str;
+        document.getElementById("Dex").value = this.currentPlayerData.dex;
+        document.getElementById("Con").value = this.currentPlayerData.con;
+        document.getElementById("Intel").value = this.currentPlayerData.intel;
+        document.getElementById("Wis").value = this.currentPlayerData.wis;
+        document.getElementById("Cha").value = this.currentPlayerData.cha;
     }
 
 
