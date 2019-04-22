@@ -157,7 +157,7 @@ function session(){
             url: that.serverAddress + "players/" + that.campaignID + "/",
             type: 'GET',
             data:{},
-            async: true,
+            async: false,
             success: function (data) {
                 that.players = data;
                 that.populatePlayers();
@@ -167,7 +167,7 @@ function session(){
             url: that.serverAddress + "GM/" + that.campaignID + "/",
             type: 'GET',
             data:{},
-            async: true,
+            async: false,
             success: function (data) {
                 that.GM = data;
                 document.getElementById("gmName").innerHTML = that.GM;
@@ -178,7 +178,7 @@ function session(){
                 url: that.serverAddress + "currentPlayer/" + Cookies.get('token') + "/",
                 type: 'GET',
                 data:{},
-                async: true,
+                async: false,
                 success: function (data) {
                     that.currentPlayer = data[1];
                     that.currentPlayerData = JSON.parse(data[4])
