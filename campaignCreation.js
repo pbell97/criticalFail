@@ -34,7 +34,7 @@ function createCampaign ()
             }
             document.getElementById("error").style.display = "none";
         },
-        failure: function (data) {
+        error: function (data) {
             console.log("Login failure");
             document.getElementById("error").style.display = "block";
         }

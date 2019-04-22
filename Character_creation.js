@@ -6,21 +6,22 @@ function processCharacter(){
     var Color = document.getElementById("color").value;
     var Password = document.getElementById("password").value;
 
+    const red = 125+(parseInt(Color.substr(0,2), 16)/2);
+    const green = 125+(parseInt(Color.substr(2,2), 16)/2);
+    const blue= 125+(parseInt(Color.substr(4,2), 16)/2);
+
+    Color = red.toString(16)+green.toString(16)+blue.toString(16);
+
     //Attributes
+    var hp = document.getElementById("HP").value;
+    var ac = document.getElementById("AC").value;
+
     var str = document.getElementById("Str").value;
     var Dex = document.getElementById("Dex").value;
     var Con = document.getElementById("Con").value;
     var Intel = document.getElementById("Intel").value;
     var Wis = document.getElementById("Wis").value;
     var Cha = document.getElementById("Cha").value;
-
-    //Attribute Saves
-    var StrSave = document.getElementById("StrSave").value;
-    var DexSave = document.getElementById("DexSave").value;
-    var ConSave = document.getElementById("ConSave").value;
-    var IntelSave = document.getElementById("IntSave").value;
-    var WisSave = document.getElementById("WisSave").value;
-    var ChaSave = document.getElementById("ChaSave").value;
 
     //Skills
     var Acrobatics = document.getElementById("Acrobatics").value;
@@ -47,19 +48,15 @@ function processCharacter(){
     var CharacterBackground = document.getElementById("background").value;
     
     var attributes = {
+        hp : hp,
+        ac : ac,
+
         str : str,
         dex : Dex,
         con : Con,
         intel : Intel,
         wis : Wis,
         cha : Cha,
-
-        strsave : StrSave,
-        dexsave : DexSave,
-        consave : ConSave,
-        intelsave : IntelSave,
-        wissave : WisSave,
-        chasave : ChaSave,
 
         acrobatics : Acrobatics,
         animal : Animal,
@@ -111,9 +108,18 @@ function processCharacter(){
             Cookies.set("token", data.token);
             Cookies.set("campaignID", document.getElementById("campaignID").value.trim());
             window.location.href = "campaignPage.html";
+            document.getElementById("error").style.display = "none";
         },
         error: function(data) {                 //TBH haven't used this, just looked this error part up for this specs page
             console.log("Post request failed");
+            document.getElementById("error").style.display = "block";
         }
     });
+}
+
+function updateModifier (element)
+{
+    const modifier = document.getElementById(element.id+"Mod");
+    const modValue = Math.floor((element.value-10)/2);
+    modifier.innerHTML = (modValue>0 ? "+" : "") + modValue;
 }

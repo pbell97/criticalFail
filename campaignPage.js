@@ -58,8 +58,7 @@ function chatClass(serverAddress, currentSession) {
         }
 
         messageInfo.innerHTML =  "<span style='color: #" + color + "'>" + message.user + "</span> - " +  message.timestamp.toLocaleTimeString();
-
-        // TODO: Set message color
+        messsageText.style.color = "#"+color;
 
         // Adds message to page
         messageElement.appendChild(messsageText);
@@ -191,6 +190,7 @@ function session(){
         }
     }
 
+    // Make sure to update Attribute Modifiers Modifier = (score-10)//2
     // Populates stats for current player
     this.populateStats = function(){
         document.getElementById("playerAttributeHP").value = this.currentPlayerData.medicine;
@@ -257,10 +257,15 @@ function rollDice(step){
         content = `
         <div>Number of Dice: <input id="diceNumber"></div>
         <div>Number of sides on Dice: <input id="diceSideNumber"></div>
-        <div><button onclick="rollDice('send')">Roll</button></div>
+        <div><button onclick="rollDice('send')">Roll</button>
+        <button style="float:right;" onclick="rollDice('close')">Cancel</button></div>
         `
         openModal(content);
         document.getElementById("mainModalContainer").onclick="";
+    }
+    if (step == "close"){
+        document.getElementById("mainModalContainer").onclick="closeModal()";
+        closeModal();
     }
     if (step == "send"){
         $.ajax({
@@ -305,3 +310,10 @@ var chat = new chatClass("http://ec2-3-209-137-117.compute-1.amazonaws.com/messa
 
 // UNCOMMENT to do chatting if server is on, also need to set 'token' cookie to 'abc123'
 setInterval(chat.getMessages, 1000);
+
+function updateModifier (element)
+{
+    const modifier = document.getElementById(element.id+"Mod");
+    const modValue = Math.floor((element.value-10)/2);
+    modifier.innerHTML = (modValue>0 ? "+" : "") + modValue;
+}

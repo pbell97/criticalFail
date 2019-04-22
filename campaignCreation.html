@@ -30,14 +30,6 @@
             margin-bottom: 1.5rem;
         }
 
-        .line{
-            width: 100%;
-            height: 5px;
-            margin-bottom: 1.5rem;
-
-            background-color: rgb(80,80,80);
-        }
-
         input{
             display: inline;
             color: black;
@@ -51,18 +43,6 @@
             width: 15rem;        
             bottom: 0;
         }
-
-        .error{
-            background-color: black;
-            border-radius: 4px;
-            width: max-content;
-            padding: 0px 0.5em 0px 0.5em;
-            margin: 0.5em 0px 0px 0px;
-
-            color: red;
-            font-weight: bold;
-            display: none; 
-        }
     </style>
 
 </head>
@@ -75,23 +55,23 @@
         
         <p> GM Account Credentials </p>
         <div style="position: relative; margin-left: 2rem;">
-            <p style="display: inline;"> Display name </p>
-            <input id="username" type="text" required="true" style="display: inline"/>
+            <p style="display: inline;"> Username </p>
+            <input id="username" type="text" style="font-size: 1rem;" placeholder="Enter Username" required="true" style="display: inline"/>
             <br/>
             <p id="passError" class="error"> Password must be at least 8 characters </p>
             <p style="display: inline;"> Password </p>
-            <input id="password" type="password" required="true" style="display: inline"/>
+            <input id="password" type="password" style="font-size: 1rem;"placeholder="Enter Password" required="true" style="display: inline"/>
         </div>
 
         <br/>
 
         <p style="display: inline; "> Campaign Code </p>
-        <input id="campaignID" type="text" required="true" maxlength="15"/>
+        <input id="campaignID" type="text" style="font-size: 1rem;"placeholder="Enter new CampaignID" required="true" maxlength="15"/>
 
         <br/> <br/>
 
         <input type="submit" value="Create" class="button" onclick="createCampaign()"></input>
-        <input type="button" value="Return to home" class="button" onclick="goHome()" style="position: absolute; right: 0px;"></input>
+        <input type="button" value="Back" class="button" onclick="goHome()" style="position: absolute; right: 0px;"></input>
         <br/> <br/>
     </div>    
 </body>
