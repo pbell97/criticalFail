@@ -204,6 +204,13 @@ function session(){
         document.getElementById("Intel").value = this.currentPlayerData.intel;
         document.getElementById("Wis").value = this.currentPlayerData.wis;
         document.getElementById("Cha").value = this.currentPlayerData.cha;
+
+        updateModifier(document.getElementById("Str"));
+        updateModifier(document.getElementById("Dex"));
+        updateModifier(document.getElementById("Con"));
+        updateModifier(document.getElementById("Intel"));
+        updateModifier(document.getElementById("Wis"));
+        updateModifier(document.getElementById("Cha"));
     }
 
 
@@ -316,7 +323,7 @@ setInterval(chat.getMessages, 1000);
 
 function updateModifier (element)
 {
-    const modifier = document.getElementById(element.id+"Mod");
-    const modValue = Math.floor((element.value-10)/2);
+    var modifier = document.getElementById(element.id+"Mod");
+    var modValue = Math.floor((element.value-10)/2);
     modifier.innerHTML = (modValue>0 ? "+" : "") + modValue;
 }
