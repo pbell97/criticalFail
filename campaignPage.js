@@ -121,7 +121,7 @@ function session(){
     if (this.token == undefined){
         document.getElementById("messageInput").style = "display: none";
         document.getElementById("logoutButton").innerHTML = "Go Home";
-        document.getElementById("rollDice").style = "display: none";;
+        document.getElementById("savePlayerAttributes").style = "display: none";
         document.getElementById("rightPanel").style = "display: none";
         document.getElementById("middlePanel").style = "right: 0rem";
         document.getElementById("messagesPane").style = "height: 100%";
