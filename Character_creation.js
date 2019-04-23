@@ -11,6 +11,10 @@ function processCharacter(){
     const blue= 125+(parseInt(Color.substr(4,2), 16)/2);
 
     Color = red.toString(16)+green.toString(16)+blue.toString(16);
+    
+    if (Color.indexOf(".") != -1){
+        Color = document.getElementById("color").value;
+    }
 
     //Attributes
     var hp = document.getElementById("HP").value;
