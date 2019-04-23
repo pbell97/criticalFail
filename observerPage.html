@@ -4,23 +4,60 @@
     <title>Observation Filler</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="observePage.css">
+    <link rel="stylesheet" href="critFail.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script src="observerPage.js"></script>
+    <script src="mainPage.js"></script>
 </head>
 <body>
 
-<table class="center">
+<h1 align="center" style="color: white"> -Available Campaigns- </h1> 
+
+<div class="fixed_header">
+<table>
+
+    <thead>
     <tr>
-        <th>Campaign Name</th>
-        <th>Players</th> 
+        <th>Campaign Name</th> 
+        <th>Players</th>
         <th>Join</th>
     </tr>
-    <tr>
-        <td>Test 1</td>
-        <td>5/6</td> 
-        <td>idk</td>
-    </tr>
-    <tr>
-        <td>Eve</td>
-        <td>1/6</td> 
-        <td>idk</td>
-    </tr>
-</table>
+    </thead>
+    <tbody>
+
+    </tbody>                      
+    </table>
+</div>
+    <br>
+    <div class="row">
+        <div class="buttonLeft">
+            <button id="loginButton" class="button bottomButton disabled" onclick="openLoginModal()">Login</button>
+        </div>
+        <div class="centerSpace">
+            <p> </p>
+        </div>
+        <div class="buttonRight">
+            <a href="mainPage.html">
+                <button class="button returnButton">Back</button>
+            </a>
+        </div>
+    </div>
+
+<!-- Hidden modal to be used if User tries to login -->
+<div id="loginModal" class="modal" onclick="closeLoginModal()">
+    <div id="loginContent" style="font-size: 1rem;" class="modalContent">
+        <label><b>Campaign:</b></label>
+            <input type="text" id="campaignID" placeholder="Enter CampaignID" required> <br>
+        <label><b>Username:</b></label>
+            <input type="text" id="username" placeholder="Enter Username" readonly onfocus="this.removeAttribute('readonly');"> <br>
+        <label><b>Password:</b></label>
+            <input type="password" id="password" placeholder="Enter Password" readonly onfocus="this.removeAttribute('readonly');"> <br>
+        <p style="color:red" id="errorMessage"></p>
+        <input id="submitButton" type="submit" value="Submit" onclick="login()">
+        <button id="cancelButton" style="float: right;" onclick="closeLoginModal()">Cancel</button>
+    </div>
+</div>
+
+</body>
+</html>

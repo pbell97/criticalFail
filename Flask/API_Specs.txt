@@ -1,0 +1,104 @@
+Sample AJAX 'GET' using JQuery:
+
+        $.ajax({
+            url: that.serverAddress + that.campaignID + "/" + that.latestMessageID,
+            type: 'GET',
+            data:{},
+            async: true,
+            success: function (data) {
+
+                // If there are messages, display and update latest message
+                if (data.length != 0){
+                    console.log("Got " + data.length +" new messages server");
+                    for (var messageData of data){
+                        var message = new receivedMessage(messageData[2], new Date(messageData[4]), messageData[1], messageData[3]);
+                        that.displayMessage(message);
+                    }
+    
+                    that.latestMessageID = message.id + 1;
+                }
+            },
+            error: function(data) {                 //TBH haven't used this, just looked this error part up for this specs page
+                console.log("Get request failed")
+            }
+
+
+        });
+
+Sample AJAX 'POST' using JQuery
+
+        $.ajax({
+            url: this.serverAddress,
+            type: 'POST',
+            data:{contents: text, token:Cookies.get('token')},
+            async: true,
+            success: function (data) {
+                console.log("Got response from message post");
+                var newMessage = new receivedMessage(data.contents, new Date(data.timestamp), data.id, data.user);
+                console.log(newMessage.outputJson());
+                document.getElementById("messageInput").value = "";
+            },
+            error: function(data) {                 //TBH haven't used this, just looked this error part up for this specs page
+                console.log("Post request failed")
+            }
+        });
+
+
+
+
+
+
+Login:
+    - Make a post to http://ec2-3-209-137-117.compute-1.amazonaws.com/login/
+    - Parameters are {username: "usernameGoesHere", passhash: "hashedPasswordGoesHere", campaignID: "campaignIDHere"}
+    - Returns JSON obj of {"expiration": "ExpirationDate", "token": "30BitLongToken"}
+    - Need to create a cookie from this data
+
+Get Players list:
+    - Make a get to http://ec2-3-209-137-117.compute-1.amazonaws.com/players/campaignID (replace campaignID with an actual one)
+    - No Parameters
+    - Returns array of JSON objects, each JSON object will look like { "color": "Blue", "username": "Brooke" }
+
+Get Player Attributes:  - Needs to be updated!!
+    - Make a get to http://ec2-3-209-137-117.compute-1.amazonaws.com/players/campaignID/username/ (replace campaignID and username with acutal ones)
+    - No Parameters
+    - Returns an array of typically just one object (the actual attribute)
+
+Create New Player:
+    - Make a post to http://ec2-3-209-137-117.compute-1.amazonaws.com/createPlayer/
+    - Parameter are {campaignID: "campaignIDGoesHere", username: "usernameHere", passhash: "hashedPassHere", color: "hexColorHere", attributes: "attributesHere"}
+    - Returns JSON obj of {"expiration": "ExpirationDate", "token": "30BitLongToken"}
+    - Just set the cookie and redirect to campaign page
+
+Create New Campaign:
+    - Make a post to http://ec2-3-209-137-117.compute-1.amazonaws.com/createCampaign/
+    - Parameters are {campaignID: "campaignIDGoesHere", username: "usernameGoesHere", passhash: "hashedPassHere"}
+    - Returns JSON obj of {"expiration": "ExpirationDate", "token": "30BitLongToken"}
+    - Just set the cookie and redirect to campaign page
+
+Get all campaign info:
+    - Make a get to http://ec2-3-209-137-117.compute-1.amazonaws.com/campaignsAll/
+    - No Parameters
+    - Returns JSON array of {"GMname": "gmUsernameHere","campaignID": "campaignIDHere", count: "countHere"}
+    - Just loop through the array and use this object to populate tables
+
+Get all player info:
+    - Make a get to http://ec2-3-209-137-117.compute-1.amazonaws.com/playersAll/
+    - No Parameters
+    - Returns JSON array of { "GMflag": "gmflagHere", "attributes": "attributesHere", "campaignID": "campaignIDHere, "color": "colorHere", "username": "usernameHere"}
+    - May not want to show attributes when populating tables because that could be long
+
+Delete player or campaign (ADMIN):          ***STILL A Work In Progress***
+    - Make a post to http://ec2-3-209-137-117.compute-1.amazonaws.com/adminDelete/
+    - Give params {token: "tokenGoesHere", campaignID: "campaignIDGoesHere", type: "putEither player or campaign", username: "playerNameHere if necessary"}
+    - The type field will either be player or campaign depending on which you are deleting. Both require token and campaignID, but the player deletion also needs username
+    - Returns "Success" if authorized appropriately. Will probably want to call /playersAll/ or /campaignsAll/ to repopulate table after deleting an item
+
+Roll dice:
+    - Make a post to http://ec2-3-209-137-117.compute-1.amazonaws.com/dice/
+    - Give params {token: "tokenGoesHere", sideNumber: "numberOfSidesOfDice", numOfDice: "howManyDiceThereAre", modifier: "canBe0"}
+    - If there is no modifier, must set as 0. If it works, a message is posted in the chat with the results
+    - Returns "Success" if it worked.
+
+GM Name:
+    - Make a get to http://ec2-3-209-137-117.compute-1.amazonaws.com/GM/campaignID/

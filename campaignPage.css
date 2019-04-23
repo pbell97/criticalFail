@@ -1,16 +1,13 @@
 #mainContainer{
     position: absolute;
-    background-color: blue;
-    width: 85%;
-    height: 85%;
-    top: 7.5%;
-    left: 7.5%;
+    width: 100%;
+    height: 100%;
 }
 
 #leftPanel{
     float:left;
     background-color: rgb(226, 226, 226);
-    width: 18%;
+    width: calc(5vmax + 7rem);
     height: 100%;
     text-align: center;
     overflow-y: auto;
@@ -18,32 +15,36 @@
 }
 
 #middlePanel{
+    position: absolute;
     float:left;
     background-color: black;
-    width: 64%;
     height: 100%;
+    left: calc(5vmax + 7rem);
+    right: 15rem;
 }
 
 #rightPanel{
+    position: absolute;
     float:left;
-    background-color: rgb(153, 153, 153);
-    width: 18%;
+    background-color: rgb(55,55,55);
+    color: white;
+    width: 15rem;
     height: 100%;
+    right: 0px;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
-
-
+.button.smallerButton{
+    font-size: 1em;
+}
 
 #logoutButton{
     position: relative;
-    top: 25px;
-    width: 80%;
-    left: 10%;
-    height: 25px;
-    background-color: seashell;
-    /* box-shadow: 1px 1px 10px black; */
+    top: 1rem;
+}
+#logoutButton:hover{
+    background-color: white;
 }
 
 #allPlayersView{
@@ -64,6 +65,8 @@
     border: 1px solid black;
     background-color: rgb(67, 108, 221);
     line-height: 45px;
+    font-size: 1.2rem;
+    color: black;
 }
 
 
@@ -72,16 +75,18 @@
 
 #messagesPane{
     position: relative;
-    height: 94%;
+    height: calc(100vh - 2em);
     overflow-y: auto;
     overflow-x: hidden;
 }
 
 #messageInput{
-    position: relative;
-    width: 99.3%;
-    height: 5%;
-    font-size:18px;
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    height: 2em;
+    font-size: 1.2rem;
+    margin: 0px;
 }
 
 
@@ -94,26 +99,41 @@
     overflow-x: hidden;
 }
 
-.playerAttributeModifier {
+.playerAttribute {
+    position: relative; 
+    width: 100%;
+}
+
+.playerAttribute.modifier {
     width: 40%;
     height: 24px;
 }
 
-.playerAttributeIcon{
+.playerAttribute.icon{
     width: 20px;
     height: 20px;
+    background-color: rgb(30,30,30);
+    border-radius: 8px;
+    padding: 4px;
 }
+
+.title{
+    font-weight: bold;
+    margin: 0px;
+    font-size: 1.1em;
+}
+
 
 .userPicture{
     width: 100%;
 }
 
-.playerAttributeScore{
+.playerAttribute.score{
     width: 20%;
     height: 16px;
 }
 
-.playerAttributeTitle{
+.playerAttribute.title{
     width: 30%;
 }
 
@@ -123,34 +143,77 @@ table{
 }
 
 #savePlayerAttributes {
+    position: absolute;
+    display: inline;    
+    margin: 8px;
+    left: calc(50% - 8px);
+    transform: translateX(-50%); 
+}
+
+#prevDisplay{
     position: relative;
-    left: 30%;
-    height: 40px;
-    width: 40%;
-    top: 4px;
+    display: inline-block;
+    margin: 8px;
+    float: left;
+    width: max-content;
+    display: none;
 }
 
 #nextDisplay{
     position: relative;
-    left: 35%;
-    width: 30%;
-    top: 3px;
+    display: inline-block;
+    margin: 8px;
+    float: right;
+    width: max-content;
 }
 
-
-
+#rollDice {
+    position: relative;
+    display: block;
+    margin: auto;
+    width: max-content;
+    /* top: 2px; */
+}
 
 
 .message {
     color:white;
+    margin-bottom: -1rem;
+    width: 100%;
 }
 
 .message p {
     position: relative;
-    top: -1.5em;
+    top: -1rem;
     font-size: 0.7em;
 }
 
 .message span{
     font-size: 1.2em;
+    word-wrap: break-word;
+}
+
+
+
+
+.row{
+    position: relative;
+    padding-left: 10px;
+}
+
+.modifier{
+    color: black;
+    background-color: white;
+    display: inline-block;
+    text-align: center;
+    margin: 4px 0px 4px 8px;
+    width: 1em;
+    border-radius: 4px;
+    font-size: 1.2em;
+}
+
+input[type=number]{
+    width: 2em;
+    color: black;
+    font-size: 1.2rem;
 }

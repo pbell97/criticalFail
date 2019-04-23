@@ -1,38 +1,48 @@
-@font-face {
-    font-family: 'vt323regular';
-    src: url('fonts/vt323-regular-webfont.woff2') format('woff2'),
-         url('fonts/vt323-regular-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
+table, header{
+    color: white;
 }
 
-* {
-    font-family: 'vt323regular';
+body{
+    font-size: 1.5rem;
 }
 
-th {
-  background-color: rgb(35, 35, 35);
+.fixed_header{
+    width: 100%;
+    table-layout: fixed;
+}
+
+.fixed_header tbody{
+  width: 100%;
+  overflow: auto;
+  height: max-content;
+}
+
+.fixed_header th, .fixed_header td {
   color: white;
+  padding: 5px;
+  text-align: center;
+  width: 5em;
 }
 
-table, th, td {
-    border: 1px solid gray;
+.fixed_header thead th {
+    color: white;
+    background: rgb(25, 25, 25);
 }
 
-table {
-    width: 75%;
+.lockIcon {
+    width: 10px;
+    height: 10px;
 }
 
-th, td {
-    padding: 10px;
-    text-align: left;
-    vertical-align: middle;
-}
+.doubleColumn {
+    float: left;
+    width: 50%;
+    text-align: center;
+  }
 
-table.center {
-    margin-left:auto; 
-    margin-right:auto;
+#serverView {
+    position: relative;
+    height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
-
-body {text-align:center;}
