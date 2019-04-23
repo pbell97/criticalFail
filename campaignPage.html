@@ -57,7 +57,7 @@
 
             <div id="playerAttributesPanel" class="playerAttribute">
                 <img src="defaulticon.jpg" class="userPicture">
-                <div id="attributes" style="padding: 8px">
+                <div id="attributes" style="padding: 8px; display: block;">
                     <p class="title">Attributes</p>
                     <div class = "row">
                         <label>HP</label>
@@ -70,7 +70,7 @@
                     <br/>
                     <div class = "row">
                         <label>Str</label>
-                        <p id="StrMod" class="modifier" onload="onModifierLoad()"> +1 </p>
+                        <p id="StrMod" class="modifier"> +1 </p>
                         <input type = "number" id="Str" style="font-size: 1rem;" value = "12" onchange="updateModifier(this)">
                     </div>
                     
@@ -104,9 +104,110 @@
                         <input type = "number" id="Cha" style="font-size: 1rem;" value = "12" onchange="updateModifier(this)">
                     </div>
                 </div>
-                <button id="prevDisplay" class="button smallerButton"> < </button>
+
+                <div id="skills" style="padding: 8px; display: none;">
+                    <p>Skills</p>
+                    <div class = "row">
+                        <label>Acrobatics (Dex)</label>
+                        <input type = "number" id="Acrobatics" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Animal Handling (Wis)</label>
+                        <input type = "number" id="Animal" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Arcana (Int)</label>
+                        <input type = "number" id="Arcana" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Athletics (Str)</label>
+                        <input type = "number" id="Athletics" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Deception (Cha)</label>
+                        <input type = "number" id="Deception" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>History (Int)</label>
+                        <input type = "number" id="History" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Insight (Wis)</label>
+                        <input type = "number" id="Insight" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Intimidation (Cha)</label>
+                        <input type = "number" id="Intimidation" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Investigation (Int)</label>
+                        <input type = "number" id="Investigation" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Medicine (Wis)</label>
+                        <input type = "number" id="Medicine" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Nature (Int)</label>
+                        <input type = "number" id="Nature" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Perception (Wis)</label>
+                        <input type = "number" id="Perception" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Performance (Cha)</label>
+                        <input type = "number" id="Performance" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Persuasion (Cha)</label>
+                        <input type = "number" id="Persuasion" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Religion (Int)</label>
+                        <input type = "number" id="Religion" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Sleight of Hand (Dex)</label>
+                        <input type = "number" id="Sleight" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Stealth (Dex)</label>
+                        <input type = "number" id="Stealth" value = "5">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Survival (Wis)</label>
+                        <input type = "number" id="Survival" value = "5">
+                    </div>
+                    
+                </div>
+
+                <div id = "characterBackground" style="padding: 8px; display: none;">
+                    <label>Player Notes</label>
+                    <br/>
+                    <textarea id="background" placeholder="Enter your background, inventory, abilities, or other notes here"></textarea>
+                </div>
+
+                <button id="prevDisplay" class="button smallerButton" onclick="previousDisplay()"> < </button>
                 <button id="savePlayerAttributes" class="button smallerButton">Save</button>
-                <button id="nextDisplay" class="button smallerButton"> > </button>
+                <button id="nextDisplay" class="button smallerButton" onclick="nextDisplay()"></button>> > </button>
                 <br/> <br/> <br/>
                 <button id="rollDice" class="button smallerButton" onclick="rollDice('open')">Roll Dice</button>
                 <br/>

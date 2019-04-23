@@ -326,3 +326,30 @@ function updateModifier (element)
     var modValue = Math.floor((element.value-10)/2);
     modifier.innerHTML = (modValue>0 ? "+" : "") + modValue;
 }
+
+function nextDisplay()
+{
+    const attributes = document.getElementById("attributes");
+    const skills = document.getElementById("skills");
+    const notes = document.getElementById("characterBackground");
+
+    const prevDisplay = document.getElementById("prevDisplay");
+    const nextDisplay = document.getElementById("nextDisplay");
+
+    if (attributes.style.display == "block")
+    {
+        attributes.style.display = "none";
+        skills.style.display = "block";
+        notes.style.display = "none";
+        prevDisplay.style.display = "inline";
+    }
+    else if (skills.style.display == "block")
+    {
+        attributes.style.display = "none";
+        skills.style.display = "none";
+        notes.style.display = "block";
+        
+        prevDisplay.style.display = "inline";
+        nextDisplay.style.display = "none";
+    }
+}
