@@ -1,0 +1,48 @@
+* {
+    color: white;
+}
+
+#mainContainer{
+    position: absolute;
+    width: calc(100vw - 10rem);
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+
+    margin-left: 5rem;
+    margin-right: 5rem;
+    font-size: 1.5em;
+}
+
+input[type=number]{
+    width: 2em;
+    color: black;
+    font-size: 1.2rem;
+}
+
+.modifier{
+    color: black;
+    background-color: white;
+    display: inline-block;
+    text-align: center;
+    margin: 4px 0px 4px 8px;
+    width: 1em;
+    border-radius: 4px;
+}
+
+.topInput{
+    padding-bottom: 30px;
+    padding-left:20px;
+    display: inline-block;
+}
+
+.row{
+    position: relative;
+    padding-left: 10px;
+}
+
+#background{
+    width: 15em;
+    height: 70vh;
+    color: black;
+}

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html  lang="en">
 <head>
-    <title>Campaign Filler</title>
+    <title>Campaign</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="campaignPage.css">
     <link rel="stylesheet" href="critFail.css">
@@ -10,35 +10,27 @@
 </head>
 <body>
 
+<div id="mainModalContainer" class="modal" onclick="closeModal()">
+    <div id="mainModalContent" class="modalContent">
+    </div>
+</div>
 
 <div id="mainContainer">
 
     <div id="leftPanel">
-        <div id="logoutButton">
+        <div id="logoutButton" class="button smallerButton" onclick="currentSession.logout()">
             Logout
         </div>
 
         <div id="allPlayersView">
             <span>GM:</span>
             <div id="gmName" class="playerName">
-                GM Name Here
+                
             </div>
             
             <br>
 
             <span>Players:</span>
-            <div class="playerName">
-                Player 1
-            </div>
-            <div class="playerName">
-                Player 2
-            </div>
-            <div class="playerName">
-                Player 3
-            </div>
-            <div class="playerName">
-                Player 4
-            </div>
         </div>
 
     </div>
@@ -63,108 +55,60 @@
                 Current Player
             </div>
 
-            <div class="playerAttributesPanel">
-                <img src="UI/defaultUserPicLol.png" class="userPicture">
-                <table>
-                    <tr width=100%>
-                        <td>
-                            <img src="UI/playerAttributeIcons/d4.png" class="playerAttributeIcon" >
-                        </td>
-                        <td class="playerAttributeTitle">
-                            HP:
-                        </td>
-                        <td>
-                            <input id="playerAttributeHP" class="playerAttributeModifier" value="14/21">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <img src="UI/playerAttributeIcons/d6.png" class="playerAttributeIcon" >
-                        </td>
-                        <td class="playerAttributeTitle">
-                            AC:
-                        </td>
-                        <td>
-                            <input id="playerAttributeAC" class="playerAttributeModifier" value="13">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <img src="UI/playerAttributeIcons/d8.png" class="playerAttributeIcon" >
-                        </td>
-                        <td class="playerAttributeTitle">
-                            Str:
-                        </td>
-                        <td>
-                            <input id="playerAttributeStr" class="playerAttributeModifier" value="-1"><input id="" class="playerAttributeScore" value="8">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <img src="UI/playerAttributeIcons/d10.png" class="playerAttributeIcon" >
-                        </td>
-                        <td class="playerAttributeTitle">
-                            Dex:
-                        </td>
-                        <td>
-                            <input id="playerAttributeDex" class="playerAttributeModifier" value="+1"><input id="" class="playerAttributeScore" value="12">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <img src="UI/playerAttributeIcons/d12.png" class="playerAttributeIcon" >
-                        </td>
-                        <td class="playerAttributeTitle">
-                            Con:
-                        </td>
-                        <td>
-                            <input id="playerAttributeCon" class="playerAttributeModifier" value="-1"><input id="" class="playerAttributeScore" value="15">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <img src="UI/playerAttributeIcons/d20.png" class="playerAttributeIcon" >
-                        </td>
-                        <td class="playerAttributeTitle">
-                            Int:
-                        </td>
-                        <td>
-                            <input id="playerAttributeInt" class="playerAttributeModifier" value="0"><input id="" class="playerAttributeScore" value="10">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <img src="UI/playerAttributeIcons/d4.png" class="playerAttributeIcon" >
-                        </td>
-                        <td class="playerAttributeTitle">
-                            Wis:
-                        </td>
-                        <td>
-                            <input id="playerAttributeWis" class="playerAttributeModifier" value="+1"><input id="" class="playerAttributeScore" value="14">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <img src="UI/playerAttributeIcons/d6.png" class="playerAttributeIcon" >
-                        </td>
-                        <td class="playerAttributeTitle">
-                            Cha:
-                        </td>
-                        <td>
-                            <input id="playerAttributeCha" class="playerAttributeModifier" value="0"><input id="" class="playerAttributeScore" value="11">
-                        </td>
-                    </tr>
-
-                </table>
-                <button id="savePlayerAttributes">Save</button>
-                <br><button id="nextDisplay">...</button>
+            <div id="playerAttributesPanel" class="playerAttribute">
+                <img src="defaulticon.jpg" class="userPicture">
+                <div id="attributes" style="padding: 8px">
+                    <p class="title">Attributes</p>
+                    <div class = "row">
+                        <label>HP</label>
+                        <input type = "number" id="HP">
+                    </div>
+                    <div class = "row">
+                        <label>AC</label>
+                        <input type = "number" id="AC">
+                    </div>
+                    <br/>
+                    <div class = "row">
+                        <label>Str</label>
+                        <p id="StrMod" class="modifier" onload="onModifierLoad()"> +1 </p>
+                        <input type = "number" id="Str" style="font-size: 1rem;" value = "12" onchange="updateModifier(this)">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Dex</label>
+                        <p id="DexMod" class="modifier"> +1 </p>
+                        <input type = "number" id="Dex" style="font-size: 1rem;" value = "12" onchange="updateModifier(this)">
+                    </div>
+                    
+                    <div class = "row"> 
+                        <label>Con</label>
+                        <p id="ConMod" class="modifier"> +1 </p>
+                        <input type = "number" id="Con" style="font-size: 1rem;" value = "12" onchange="updateModifier(this)">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Int</label>
+                        <p id="IntelMod" class="modifier"> +1 </p>
+                        <input type = "number" id="Intel" style="font-size: 1rem;" value = "12" onchange="updateModifier(this)">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Wis</label>
+                        <p id="WisMod" class="modifier"> +1 </p>
+                        <input type = "number" id="Wis" style="font-size: 1rem;" value = "12" onchange="updateModifier(this)">
+                    </div>
+                    
+                    <div class = "row">
+                        <label>Cha</label>
+                        <p id="ChaMod" class="modifier"> +1 </p>
+                        <input type = "number" id="Cha" style="font-size: 1rem;" value = "12" onchange="updateModifier(this)">
+                    </div>
+                </div>
+                <button id="prevDisplay" class="button smallerButton"> < </button>
+                <button id="savePlayerAttributes" class="button smallerButton" onclick="rollDice('open')">Roll Dice</button>
+                <button id="nextDisplay" class="button smallerButton"> > </button>
+                <br/> <br/> <br/>
+                <br/>
             </div>
 
         </div>
@@ -173,6 +117,8 @@
 
 
 </div>
+
+
 
 
 <script src="campaignPage.js"></script>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html  lang="en">
+<head>
+    <title>Campaign Creation</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="critFail.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script src="campaignCreation.js"></script>
+
+    <style>
+        * {
+            color: white;
+        }
+
+        #mainContainer{
+            position: absolute;
+            width: calc(100vw - 10rem);
+            top: 0px;
+            left: 0px;
+            bottom: 0px;
+
+            margin-left: 5rem;
+            margin-right: 5rem;
+            font-size: 1.5em;
+        }
+
+        #title{
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        input{
+            display: inline;
+            color: black;
+            font-size: 1.2rem;
+        }
+
+        .notes{
+            color: black;
+            font-size: 1.2rem;
+
+            width: 15rem;        
+            bottom: 0;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="mainContainer">
+        <h1 id="title"> Campaign Creation </h1>
+        <div class="line"></div>
+
+        <p id="error" class="error"> Unable to create campaign, please try different inputs </p>
+        
+        <p> GM Account Credentials </p>
+        <div style="position: relative; margin-left: 2rem;">
+            <p style="display: inline;"> Username </p>
+            <input id="username" type="text" style="font-size: 1rem;" placeholder="Enter Username" required="true" style="display: inline"/>
+            <br/>
+            <p id="passError" class="error"> Password must be at least 8 characters </p>
+            <p style="display: inline;"> Password </p>
+            <input id="password" type="password" style="font-size: 1rem;"placeholder="Enter Password" required="true" style="display: inline"/>
+        </div>
+
+        <br/>
+
+        <p style="display: inline; "> Campaign Code </p>
+        <input id="campaignID" type="text" style="font-size: 1rem;"placeholder="Enter new CampaignID" required="true" maxlength="15"/>
+
+        <br/> <br/>
+
+        <input type="submit" value="Create" class="button" onclick="createCampaign()"></input>
+        <input type="button" value="Back" class="button" onclick="goHome()" style="position: absolute; right: 0px;"></input>
+        <br/> <br/>
+    </div>    
+</body>
+</html>
+    
