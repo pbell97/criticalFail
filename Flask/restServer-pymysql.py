@@ -488,7 +488,7 @@ def getCurrentPlayer(token):
 
     tokenData = getSQLResults("SELECT username, campaignID FROM cf_tokens WHERE token = '" + token + "'")
     username = tokenData[0][0]
-    stats = getSQLResults("SELECT * FROM cf_users WHERE username = '" + str(username) + "'")
+    stats = getSQLResults("SELECT * FROM cf_users WHERE username = '" + str(username) + "' and campaignID = '" + str(tokenData[0][1]) + "'")
     stats = stats[0]
 
     response = jsonify(stats)
