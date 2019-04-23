@@ -21,11 +21,11 @@
             <div>
                 <div class = "topInput">
                     <label>Username</label>
-                    <input type="text" id="username" style="font-size: 1rem;" placeholder="Enter Username">                        
+                    <input type="text" id="username" style="font-size: 1rem;" placeholder="Enter Username">
                 </div>
                 <div class = "topInput">
                     <label>Password</label>
-                    <input type="password" id="password" style="font-size: 1rem;"placeholder="Enter Password">                        
+                    <input type="password" id="password" style="font-size: 1rem;"placeholder="Enter Password">  
                 </div>
                 <br/>
                 <div class = "topInput">
@@ -45,47 +45,55 @@
                 <p>Attributes</p>
                 <div class = "row">
                     <label>Hit Points</label>
-                    <input type = "number" id="HP" value="10">
+                    <input type = "number" id="HP" value = "10">
+                    <span class="NumError" id="HPErr"></span>
                 </div>
                 <div class = "row">
                     <label>Armor Class</label>
-                    <input type = "number" id="AC" value="10">
+                    <input type = "number" id="AC" value = "10">
+                    <span class="NumError" id="ACErr"></span>
                 </div>
                 <br/>
                 <div class = "row">
                     <label>Strength</label>
                     <p id="StrMod" class="modifier"> +1 </p>
                     <input type = "number" id="Str" style="font-size: 1rem;" value = "12" onchange="updateModifier(this)">
+                    <span class="NumError" id="StrErr"></span>
                 </div>
                 
                 <div class = "row">
                     <label>Dexterity</label>
                     <p id="DexMod" class="modifier"> +1 </p>
                     <input type = "number" id="Dex" style="font-size: 1rem;" value = "12" onchange="updateModifier(this)">
+                    <span class="NumError" id="DexErr"></span>
                 </div>
                 
                 <div class = "row"> 
                     <label>Constitution</label>
                     <p id="ConMod" class="modifier"> +1 </p>
                     <input type = "number" id="Con" style="font-size: 1rem;" value = "12" onchange="updateModifier(this)">
+                    <span class="NumError" id="ConErr"></span>
                 </div>
                 
                 <div class = "row">
                     <label>Intelligence</label>
                     <p id="IntelMod" class="modifier"> +1 </p>
                     <input type = "number" id="Intel" style="font-size: 1rem;" value = "12" onchange="updateModifier(this)">
+                    <span class="NumError" id="IntelErr"></span>
                 </div>
                 
                 <div class = "row">
                     <label>Wisdom</label>
                     <p id="WisMod" class="modifier"> +1 </p>
                     <input type = "number" id="Wis" style="font-size: 1rem;" value = "12" onchange="updateModifier(this)">
+                    <span class="NumError" id="WisErr"></span>
                 </div>
                 
                 <div class = "row">
                     <label>Charisma</label>
                     <p id="ChaMod" class="modifier"> +1 </p>
                     <input type = "number" id="Cha" style="font-size: 1rem;" value = "12" onchange="updateModifier(this)">
+                    <span class="NumError" id="ChaErr"></span>
                 </div>
             </div> 
 
@@ -98,91 +106,109 @@
                     <div class = "row">
                         <label>Acrobatics (Dex)</label>
                         <input type = "number" id="Acrobatics" value = "5">
+                        <span class="NumError" id="AcrErr"></span>
                     </div>
                     
                     <div class = "row">
                         <label>Animal Handling (Wis)</label>
                         <input type = "number" id="Animal" value = "5">
+                        <span class="NumError" id="AniErr"></span>
                     </div>
                     
                     <div class = "row">
                         <label>Arcana (Int)</label>
                         <input type = "number" id="Arcana" value = "5">
+                        <span class="NumError" id="ArcErr"></span>
                     </div>
                     
                     <div class = "row">
                         <label>Athletics (Str)</label>
                         <input type = "number" id="Athletics" value = "5">
+                        <span class="NumError" id="AthErr"></span>
                     </div>
                     
                     <div class = "row">
                         <label>Deception (Cha)</label>
                         <input type = "number" id="Deception" value = "5">
+                        <span class="NumError" id="DecErr"></span>
                     </div>
                     
                     <div class = "row">
                         <label>History (Int)</label>
                         <input type = "number" id="History" value = "5">
+                        <span class="NumError" id="HisErr"></span>
                     </div>
                     
                     <div class = "row">
                         <label>Insight (Wis)</label>
                         <input type = "number" id="Insight" value = "5">
+                        <span class="NumError" id="InsErr"></span>
                     </div>
                     
                     <div class = "row">
                         <label>Intimidation (Cha)</label>
                         <input type = "number" id="Intimidation" value = "5">
+                        <span class="NumError" id="IntErr"></span>
                     </div>
                     
                     <div class = "row">
                         <label>Investigation (Int)</label>
                         <input type = "number" id="Investigation" value = "5">
+                        <span class="NumError" id="InvErr"></span>
                     </div>
                     
                     <div class = "row">
                         <label>Medicine (Wis)</label>
                         <input type = "number" id="Medicine" value = "5">
+                        <span class="NumError" id="MedErr"></span>
                     </div>
                     
                     <div class = "row">
                         <label>Nature (Int)</label>
                         <input type = "number" id="Nature" value = "5">
+                        <span class="NumError" id="NatErr"></span>
                     </div>
                     
                     <div class = "row">
                         <label>Perception (Wis)</label>
                         <input type = "number" id="Perception" value = "5">
+                        <span class="NumError" id="PercErr"></span>
                     </div>
                     
                     <div class = "row">
                         <label>Performance (Cha)</label>
                         <input type = "number" id="Performance" value = "5">
+                        <span class="NumError" id="PerfErr"></span>
                     </div>
                     
                     <div class = "row">
                         <label>Persuasion (Cha)</label>
                         <input type = "number" id="Persuasion" value = "5">
+                        <span class="NumError" id="PersErr"></span>
                     </div>
                     
                     <div class = "row">
                         <label>Religion (Int)</label>
                         <input type = "number" id="Religion" value = "5">
+                        <span class="NumError" id="RelErr"></span>
                     </div>
                     
                     <div class = "row">
                         <label>Sleight of Hand (Dex)</label>
                         <input type = "number" id="Sleight" value = "5">
+                        <span class="NumError" id="SleErr"></span>
                     </div>
                     
                     <div class = "row">
                         <label>Stealth (Dex)</label>
                         <input type = "number" id="Stealth" value = "5">
+                        <span class="NumError" id="SteErr"></span>
                     </div>
                     
                     <div class = "row">
                         <label>Survival (Wis)</label>
                         <input type = "number" id="Survival" value = "5">
+                        <span class="NumError" id="SurErr"></span>
                     </div>
                     
             </div>

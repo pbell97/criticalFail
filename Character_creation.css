@@ -42,7 +42,11 @@ input[type=number]{
 }
 
 #background{
-    width: 13em;
-    height: 55vh;
+    width: 15em;
+    height: 70vh;
     color: black;
+}
+
+.NumError{
+    color: red;
 }

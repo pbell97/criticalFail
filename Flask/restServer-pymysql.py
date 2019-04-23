@@ -208,10 +208,10 @@ def adminDelete():
     delType = request.form['type']
 
     if (delType == "campaign"): 
-        getSQLResults("DELETE FROM cf_messages WHERE campaignID = '" + str(request.form['campaignID']) + "'")
-        getSQLResults("DELETE FROM cf_tokens WHERE campaignID = '" + str(request.form['campaignID']) + "'")
-        getSQLResults("DELETE FROM cf_users WHERE campaignID = '" + str(request.form['campaignID']) + "'")
-        getSQLResults("DELETE FROM cf_campaigns WHERE campaignID = \"" + request.form['campaignID'] + "\"")
+        postSQL("DELETE FROM cf_messages WHERE campaignID = %s",(str(request.form['campaignID'])))
+        postSQL("DELETE FROM cf_tokens WHERE campaignID = %s", (str(request.form['campaignID'])))
+        postSQL("DELETE FROM cf_users WHERE campaignID = %s", (str(request.form['campaignID'])))
+        postSQL("DELETE FROM cf_campaigns WHERE campaignID = %s", (request.form['campaignID']))
     elif (delType == "player"):
         query = "DELETE FROM cf_users WHERE campaignID = \"" + request.form['campaignID'] + "\" AND username = \"" + request.form['username'] + "\""
         print("Q: " + query)
