@@ -22,6 +22,7 @@ init_cf_campaigns = "CREATE TABLE IF NOT EXISTS cf_campaigns (campaignID VARCHAR
 init_cf_users = "CREATE TABLE IF NOT EXISTS cf_users (campaignID VARCHAR(32), username VARCHAR(32), password VARCHAR(128), color VARCHAR(32), attributes VARCHAR(1000), GMflag INT, PRIMARY KEY(campaignID, username), FOREIGN KEY(campaignID) REFERENCES cf_campaigns(campaignID));"
 init_cf_messages = "CREATE TABLE IF NOT EXISTS cf_messages (campaignID VARCHAR(32), messageID INT NOT NULL, message VARCHAR(256), username VARCHAR(32), time VARCHAR(64), recipient VARCHAR(32), PRIMARY KEY(campaignID, messageID), FOREIGN KEY(campaignID) REFERENCES cf_campaigns(campaignID));"
 
+
 mycursor.execute(init_cf_tokens)
 mycursor.execute(init_cf_campaigns)
 mycursor.execute(init_cf_users)

@@ -104,7 +104,6 @@
                         <input type = "number" id="Cha" style="font-size: 1rem;" value = "12" onchange="updateModifier(this)">
                     </div>
                 </div>
-
                 <div id="skills" style="padding: 8px; display: none;">
                     <p>Skills</p>
                     <div class = "row">
@@ -206,11 +205,8 @@
                 </div>
 
                 <button id="prevDisplay" class="button smallerButton" onclick="previousDisplay()"> < </button>
-                <button id="savePlayerAttributes" class="button smallerButton">Save</button>
+                <button id="savePlayerAttributes" class="button smallerButton" onclick="rollDice('open')">Roll Dice</button>
                 <button id="nextDisplay" class="button smallerButton" onclick="nextDisplay()"></button>> > </button>
-                <br/> <br/> <br/>
-                <button id="rollDice" class="button smallerButton" onclick="rollDice('open')">Roll Dice</button>
-                <br/>
             </div>
 
         </div>

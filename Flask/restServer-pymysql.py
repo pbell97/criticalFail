@@ -3,7 +3,7 @@ from flask_restful import Api, reqparse
 from flask_cors import CORS, cross_origin
 from flask_sslify import SSLify
 import datetime
-import mysql.connector
+import pymysql
 import secrets
 import datetime
 import random
@@ -15,14 +15,13 @@ sslify = SSLify(app)
 # CORS(app, support_credentials=True)
 
 print(" * Signing in to database...")
-cnx = mysql.connector.connect(
+cnx = pymysql.connect(
     user='root',
     password='criticalFail',
-    database='criticalFail',
-    host='localhost',
-    buffered=True)
+    db='criticalFail',
+    host='localhost')
 
-sql = cnx.cursor(buffered=True)
+sql = cnx.cursor()
 # sql.execute('USE criticalfail;')
 # sql.execute('SET GLOBAL connect_timeout=6000')
 
@@ -32,19 +31,21 @@ canSend = True
 canSendTime = 0
 
 def getSQLResults(query):
-    global sql, canSend, canSendTime
+    global sql, canSend, canSendTime, cnx
     try:
-        while(not canSend):
-            if (canSendTime == 0):
-                canSendTime = time.time()
-            if (canSendTime != 0 and time.time() - canSendTime > 1):
-                canSend = True
-                canSendTime = 0
-                print("Exitted Loop")
-            time.sleep(0.05)
-            print("sitting in loop")
-            None
-        canSend = False
+        # while(not canSend):
+        #     if (canSendTime == 0):
+        #         canSendTime = time.time()
+        #     if (canSendTime != 0 and time.time() - canSendTime > 1):
+        #         canSend = True
+        #         canSendTime = 0
+        #         print("Exitted Loop")
+        #     time.sleep(0.05)
+        #     print("sitting in loop")
+        #     None
+        # canSend = False
+
+
         sql.execute(query)
         result = sql.fetchall()
         canSend = True
@@ -59,15 +60,17 @@ def getSQLResults(query):
         return returnedItem
     except Exception as exception:
         print("Got Error ", exception)
-        # sql.execute(query)
-        # result = sql.fetchall()
-        # if result != None:
-        #     returnedItem = []
-        #     for item in result:
-        #         returnedItem.append(item)
-        #     return returnedItem
-        # else:
-        #     return []
+        print("Attempting to reset connection")
+        try:
+            cnx.close()
+            cnx = pymysql.connect(
+                user='root',
+                password='criticalFail',
+                db='criticalFail',
+                host='localhost')
+            sql = cnx.cursor()
+        except Exception as exception:
+            print("Got Error while reseting ", exception)
         return []
 
 def postSQL(query, values):
@@ -111,7 +114,7 @@ def postMessages():
     # Verifies token and gets user data
     token = request.form['token']
     tokenData = getSQLResults("SELECT username, campaignID FROM cf_tokens WHERE token = '" + token + "'")
-    print("Token Data: ", tokenData)
+    # print("Token Data: ", tokenData)
     if (tokenData == []):
         print("Un-authed user tried to post a message")
         return "Request is not correctly authorized", 403
@@ -122,7 +125,7 @@ def postMessages():
 
     username = tokenData[0][0]
     campaignID = tokenData[0][1]
-    print("SELECT * FROM cf_users WHERE username = '" + username + "' AND campaignID = '" + str(campaignID) + "'")
+    # print("SELECT * FROM cf_users WHERE username = '" + username + "' AND campaignID = '" + str(campaignID) + "'")
     userData = getSQLResults("SELECT * FROM cf_users WHERE username = '" + username + "' AND campaignID = '" + str(campaignID) + "'")[0]
     color = userData[3]
     

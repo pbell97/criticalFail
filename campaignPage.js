@@ -57,9 +57,9 @@ function chatClass(serverAddress, currentSession) {
             }
         }
 
-        var time = new Date(message.timestamp.toLocaleTimeString());
-        time.setMinutes( time.getHours() - 5);
-        messageInfo.innerHTML =  "<span style='color: #" + color + "'>" + message.user + "</span> - " +  message.timestamp.toLocaleTimeString();
+        var time = new Date(message.timestamp);
+        time.setHours(time.getHours() - 5)
+        messageInfo.innerHTML =  "<span style='color: #" + color + "'>" + message.user + "</span> - " +  time.toLocaleTimeString();
         messsageText.style.color = "#"+color;
 
         // Adds message to page
@@ -184,6 +184,7 @@ function session(){
                     that.currentPlayer = data[1];
                     that.currentPlayerData = JSON.parse(data[4])
                     document.getElementById("activePlayerView").getElementsByClassName("playerName")[0].innerHTML = that.currentPlayer;
+                    document.getElementById("activePlayerView").getElementsByClassName("playerName")[0].style =  "background-color: #" + data[3];
                     that.populateStats()
                 }
             });
