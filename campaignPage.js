@@ -196,6 +196,7 @@ function session(){
     // Make sure to update Attribute Modifiers Modifier = (score-10)//2
     // Populates stats for current player
     this.populateStats = function(){
+        // Attributes
         document.getElementById("HP").value = this.currentPlayerData.hp;
         document.getElementById("AC").value = this.currentPlayerData.ac;
         document.getElementById("Str").value = this.currentPlayerData.str;
@@ -205,6 +206,31 @@ function session(){
         document.getElementById("Wis").value = this.currentPlayerData.wis;
         document.getElementById("Cha").value = this.currentPlayerData.cha;
 
+        // Skills
+        document.getElementById("Acrobatics").value = this.currentPlayerData.acrobatics;
+        document.getElementById("Animal").value = this.currentPlayerData.animal;
+        document.getElementById("Arcana").value = this.currentPlayerData.arcana;
+        document.getElementById("Athletics").value = this.currentPlayerData.athletics;
+        document.getElementById("Deception").value = this.currentPlayerData.deceoption;
+        document.getElementById("History").value = this.currentPlayerData.history;
+
+        document.getElementById("Insight").value = this.currentPlayerData.insight;
+        document.getElementById("Intimidation").value = this.currentPlayerData.intimidation;
+        document.getElementById("Investigation").value = this.currentPlayerData.investigation;
+        document.getElementById("Medicine").value = this.currentPlayerData.medicine;
+        document.getElementById("Nature").value = this.currentPlayerData.nature;
+        document.getElementById("Perception").value = this.currentPlayerData.perception;
+
+        document.getElementById("Performance").value = this.currentPlayerData.performance;
+        document.getElementById("Persuasion").value = this.currentPlayerData.persuasion;
+        document.getElementById("Religion").value = this.currentPlayerData.religion;
+        document.getElementById("Sleight").value = this.currentPlayerData.sleight;
+        document.getElementById("Stealth").value = this.currentPlayerData.stealth;
+        document.getElementById("Survival").value = this.currentPlayerData.suvival;
+
+        // Notes
+        document.getElementById("background").value = this.currentPlayerData.Character_Background;
+    
         updateModifier(document.getElementById("Str"));
         updateModifier(document.getElementById("Dex"));
         updateModifier(document.getElementById("Con"));
@@ -326,6 +352,33 @@ function updateModifier (element)
     var modifier = document.getElementById(element.id+"Mod");
     var modValue = Math.floor((element.value-10)/2);
     modifier.innerHTML = (modValue>0 ? "+" : "") + modValue;
+}
+
+function previousDisplay()
+{
+    const attributes = document.getElementById("attributes");
+    const skills = document.getElementById("skills");
+    const notes = document.getElementById("characterBackground");
+
+    const prevDisplay = document.getElementById("prevDisplay");
+    const nextDisplay = document.getElementById("nextDisplay");
+    
+    if (skills.style.display == "block")
+    {
+        attributes.style.display = "block";
+        skills.style.display = "none";
+        notes.style.display = "none";
+        
+        prevDisplay.style.display = "none";
+        nextDisplay.style.display = "inline";
+    }
+    else if (notes.style.display == "block")
+    {
+        attributes.style.display = "none";
+        skills.style.display = "block";
+        notes.style.display = "none";
+        nextDisplay.style.display = "inline";
+    }
 }
 
 function nextDisplay()

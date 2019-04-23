@@ -204,3 +204,9 @@ input[type=number]{
     color: black;
     font-size: 1.2rem;
 }
+
+#background{
+    width: 13em;
+    height: 55vh;
+    color: black;
+}
